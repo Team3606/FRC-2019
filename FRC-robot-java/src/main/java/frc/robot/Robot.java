@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 /**
  * This is a demo program showing how to use Mecanum control with the RobotDrive
- * class.
+ * class. Bearmetal will probably adapt it into our main prog.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
   private static final int kFrontLeftChannel = 2;
   private static final int kRearLeftChannel = 3;
   private static final int kFrontRightChannel = 1;
@@ -28,7 +29,8 @@ public class Robot extends TimedRobot {
   private Joystick m_stick;
 
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     PWMVictorSPX frontLeft = new PWMVictorSPX(kFrontLeftChannel);
     PWMVictorSPX rearLeft = new PWMVictorSPX(kRearLeftChannel);
     PWMVictorSPX frontRight = new PWMVictorSPX(kFrontRightChannel);
@@ -45,7 +47,8 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() 
+  {
     // Use the joystick X axis for lateral movement, Y axis for forward
     // movement, and Z axis for rotation.
     m_robotDrive.driveCartesian(m_stick.getX(), m_stick.getY(),
