@@ -5,31 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Subsystem;
+//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.TimedRobot;
+//import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+//import frc.robot.OI;
+import team3606.XBoxController;
 
 /**
- * This is a demo program showing how to use Mecanum control with the RobotDrive
- * class. Bearmetal will probably adapt it into our main prog.
+ * Subsystem for the mecanum drive system. Call drive functions from related commands
  */
-public class Robot extends TimedRobot 
+public class MecanumSubsystem extends Subsystem 
 {
+
   private static final int kFrontLeftChannel = 2;
   private static final int kRearLeftChannel = 3;
   private static final int kFrontRightChannel = 1;
   private static final int kRearRightChannel = 0;
 
-  private static final int kJoystickChannel = 0;
+  private MecanumDrive mecanumDrive;
 
-  private MecanumDrive m_robotDrive;
-  private Joystick m_stick;
-
-  @Override
-  public void robotInit() 
+  public void initDriveComponents()
   {
     PWMVictorSPX frontLeft = new PWMVictorSPX(kFrontLeftChannel);
     PWMVictorSPX rearLeft = new PWMVictorSPX(kRearLeftChannel);
@@ -41,17 +40,19 @@ public class Robot extends TimedRobot
     frontLeft.setInverted(true);
     rearLeft.setInverted(true);
 
-    m_robotDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
+    mecanumDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
+  }
 
-    m_stick = new Joystick(kJoystickChannel);
+  //Hardcoded to use the joypad that will be defined in OI. Maybe pass instead?
+  public void drive(XBoxController controller)
+  {
+    mecanumDrive.driveCartesian(controller.LeftXAxis(), controller.LeftYAxis(), controller.RightXAxis(), 0.0);
   }
 
   @Override
-  public void teleopPeriodic() 
+  public void initDefaultCommand() 
   {
-    // Use the joystick X axis for lateral movement, Y axis for forward
-    // movement, and Z axis for rotation.
-    m_robotDrive.driveCartesian(m_stick.getX(), m_stick.getY(),
-        m_stick.getZ(), 0.0);
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
   }
 }
