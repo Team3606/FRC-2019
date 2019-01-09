@@ -19,8 +19,8 @@ import frc.robot.commands.*;
 public class OI 
 {
   // Definition for our two controlers
-  XBoxController driverController = new XBoxController(0);
-  XBoxController gunnerController = new XBoxController(1);
+  public XBoxController driverController = new XBoxController(0);
+  public XBoxController gunnerController = new XBoxController(1);
 
   // Test case - can be removed when first real button is active
   Button testButton = new JoystickButton(driverController.Controller, driverController.ButtonByName('a'));

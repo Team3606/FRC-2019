@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command.  You can replace me with your own command.
+ * Main drive command. Basically just a shell to follow Subsystem/Command structure
  */
-public class ExampleCommand extends Command 
+public class Drive extends Command 
 {
-  public ExampleCommand() 
+  public Drive() 
   {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.exampleSubsystem);
+    requires(Robot.mecanumSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -32,7 +32,7 @@ public class ExampleCommand extends Command
   @Override
   protected void execute() 
   {
-
+    Robot.mecanumSubsystem.drive(Robot.operatorInterface.driverController);
   }
 
   // Make this return true when this Command no longer needs to run execute()
