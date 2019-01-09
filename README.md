@@ -3,4 +3,4 @@
 More information soon
 
 ## Track Club Progress:
-[Trello] (https://trello.com/b/YqWAu4zO/build-season-2019)
+[Trello](https://trello.com/b/YqWAu4zO/build-season-2019)
