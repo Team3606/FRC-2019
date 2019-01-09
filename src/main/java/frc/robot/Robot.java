@@ -31,6 +31,7 @@ public class Robot extends TimedRobot
 
   public static OI operatorInterface;
 
+  // TODO - rename
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
