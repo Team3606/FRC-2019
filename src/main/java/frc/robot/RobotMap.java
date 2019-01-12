@@ -7,6 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.*;
+
+//import frc.robot.OI;
+import team3606.XBoxController;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -15,6 +20,28 @@ package frc.robot;
  */
 public class RobotMap 
 {
+  //controllers
+  public XBoxController controllerOne;
+  public XBoxController controllerTwo;
+
+  //spark motors
+  /*
+  public Spark spark1 = new Spark(10);
+  public Spark spark2 = new Spark(11);
+  public Spark spark3 = new Spark(12);
+  public Spark spark4 = new Spark(13);
+  */
+  RobotMap()
+  {
+    controllerOne = new XBoxController(0);
+    controllerTwo = new XBoxController(1);
+    /*
+    spark1.enableDeadbandElimination(true);
+    spark2.enableDeadbandElimination(true);
+    spark3.enableDeadbandElimination(true);
+    spark4.enableDeadbandElimination(true);*/
+    
+  }
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
   // public static int leftMotor = 1;
