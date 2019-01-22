@@ -19,11 +19,11 @@ import frc.robot.commands.*;
 public class OI 
 {
   // Definition for our two controlers
-  public XBoxController driverController = new XBoxController(0);
-  public XBoxController gunnerController = new XBoxController(1);
+  //public XBoxController driverController = new XBoxController(0);
+  //public XBoxController gunnerController = new XBoxController(1);
 
   // Test case - can be removed when first real button is active
-  Button testButton = new JoystickButton(driverController.Controller, driverController.ButtonByName('a'));
+  //Button testButton = new JoystickButton(driverController.Controller, driverController.ButtonByName('a'));
 
   // Constructor for OI instance
   // Define what each button does by putting "new CommandName" as argument
@@ -34,6 +34,6 @@ public class OI
   public OI()
   {
      // Test case - can be removed when first real button is active
-    testButton.whenPressed(new ExampleCommand());
+    //testButton.whenPressed(new ExampleCommand());
   }
 }

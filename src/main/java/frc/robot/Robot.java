@@ -24,12 +24,9 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot 
 {
-  public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
   public static MecanumSubsystem mecanumSubsystem = new MecanumSubsystem();
-
-  Drive driveCommand = new Drive();
-
   public static OI operatorInterface;
+  public RobotMap robotMap = new RobotMap();
 
   // TODO - rename
   Command m_autonomousCommand;
@@ -70,7 +67,7 @@ public class Robot extends TimedRobot
   @Override
   public void disabledInit() 
   {
-    driveCommand.close();
+
   }
 
   @Override
@@ -130,7 +127,6 @@ public class Robot extends TimedRobot
       m_autonomousCommand.cancel();
     }
 
-    driveCommand.start();
   }
 
   /**
@@ -140,6 +136,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
+    Robot.mecanumSubsystem.drive(robotMap.controllerOne);
   }
 
   /**

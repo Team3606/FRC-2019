@@ -26,10 +26,9 @@ public class MecanumSubsystem extends Subsystem
   private static final int kFrontRightChannel = 1;
   private static final int kRearRightChannel = 0;
 
-  private MecanumDrive mecanumDrive;
-
-  public void initDriveComponents()
+  public MecanumSubsystem()
   {
+    // TODO make sure that these controllers are correct
     PWMVictorSPX frontLeft = new PWMVictorSPX(kFrontLeftChannel);
     PWMVictorSPX rearLeft = new PWMVictorSPX(kRearLeftChannel);
     PWMVictorSPX frontRight = new PWMVictorSPX(kFrontRightChannel);
@@ -41,7 +40,10 @@ public class MecanumSubsystem extends Subsystem
     rearLeft.setInverted(true);
 
     mecanumDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
+ 
   }
+
+  private MecanumDrive mecanumDrive;
 
   //Hardcoded to use the joypad that will be defined in OI. Maybe pass instead?
   public void drive(XBoxController controller)
