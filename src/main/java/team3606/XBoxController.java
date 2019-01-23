@@ -7,22 +7,22 @@ import edu.wpi.first.wpilibj.buttons.Button;
 public class XBoxController 
 {
 	// assign the id numbers for the analog ports on the joystick
-	int id_LeftXAxis = 0;
-	int id_LeftYAxis = 1;
-	int id_LeftTrigger = 2;
-	int id_RightTrigger = 3;
-	int id_RightXAxis = 4;
-	int id_RightYAxis = 5;
+	public int id_LeftXAxis = 0;
+	public int id_LeftYAxis = 1;
+	public int id_LeftTrigger = 2;
+	public int id_RightTrigger = 3;
+	public int id_RightXAxis = 4;
+	public int id_RightYAxis = 5;
 	
 	// assign the id numbers for the analog ports on the joystick
-	int id_A_Button = 1;
-	int id_B_Button = 2;
-	int id_X_Button = 3;
-	int id_Y_Button = 4;
-	int id_LeftBumper = 5;
-	int id_RightBumper = 6;
-	int id_SelectButton = 7;
-	int id_StartButton = 8;
+	public int id_A_Button = 1;
+	public int id_B_Button = 2;
+	public int id_X_Button = 3;
+	public int id_Y_Button = 4;
+	public int id_LeftBumper = 5;
+	public int id_RightBumper = 6;
+	public int id_SelectButton = 7;
+	public int id_StartButton = 8;
 
 	public Joystick Controller;
 	

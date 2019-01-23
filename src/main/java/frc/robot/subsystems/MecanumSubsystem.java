@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 //import frc.robot.OI;
 import team3606.XBoxController;
+//import robotmap
+import frc.robot.RobotMap;
 
 /**
  * Subsystem for the mecanum drive system. Call drive functions from related commands
@@ -21,13 +23,17 @@ import team3606.XBoxController;
 public class MecanumSubsystem extends Subsystem 
 {
 
+  //declare motor ports
   private static final int kFrontLeftChannel = 2;
   private static final int kRearLeftChannel = 3;
   private static final int kFrontRightChannel = 1;
   private static final int kRearRightChannel = 0;
 
-  public MecanumSubsystem()
+  //make the robot map
+  RobotMap map;
+  public MecanumSubsystem(RobotMap m)
   {
+    map = m;
     // TODO make sure that these controllers are correct
     PWMVictorSPX frontLeft = new PWMVictorSPX(kFrontLeftChannel);
     PWMVictorSPX rearLeft = new PWMVictorSPX(kRearLeftChannel);
@@ -46,9 +52,9 @@ public class MecanumSubsystem extends Subsystem
   private MecanumDrive mecanumDrive;
 
   //Hardcoded to use the joypad that will be defined in OI. Maybe pass instead?
-  public void drive(XBoxController controller)
+  public void drive()
   {
-    mecanumDrive.driveCartesian(controller.LeftXAxis(), controller.LeftYAxis(), controller.RightXAxis(), 0.0);
+    mecanumDrive.driveCartesian(map.controllerOne.LeftXAxis(), map.controllerOne.LeftYAxis(), map.controllerOne.RightXAxis(), 0.0);
   }
 
   @Override

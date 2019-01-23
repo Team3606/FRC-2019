@@ -29,8 +29,6 @@ public class Robot extends TimedRobot
   //make macanical drivesystem
   public MecanumSubsystem mecanumSubsystem;
 
-  public static OI operatorInterface;
-
   // TODO - rename
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -44,9 +42,8 @@ public class Robot extends TimedRobot
     //init macanum system
     mecanumSubsystem = new MecanumSubsystem(robotMap);
 
-    operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    chooser.addOption("My Auto", new MyAutoCommand());
+    //chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 

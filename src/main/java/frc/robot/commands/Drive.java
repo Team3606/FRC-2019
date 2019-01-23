@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+//NOT USED JUSTED KEPT INCASE WE NEED IT
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,7 +18,7 @@ public class Drive extends Command
   public Drive() 
   {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.mecanumSubsystem);
+    //requires(Robot.mecanumSubsystem);
   }
 
   // Called just before this Command runs the first time

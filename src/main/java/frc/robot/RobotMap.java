@@ -8,7 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.OI;
 import team3606.XBoxController;
 
@@ -16,39 +16,27 @@ import team3606.XBoxController;
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * floating around. it also provides controllers for shared use in subsystems
  */
 public class RobotMap 
 {
+  
   //controllers
   public XBoxController controllerOne;
   public XBoxController controllerTwo;
-
-  //spark motors
-  /*
-  public Spark spark1 = new Spark(10);
-  public Spark spark2 = new Spark(11);
-  public Spark spark3 = new Spark(12);
-  public Spark spark4 = new Spark(13);
-  */
+  
+  //motor for elevator
+  public PWMVictorSPX Elevator;
+  
+  //connect to arduion for line reader
   RobotMap()
   {
+    //SET CONTROLLER PORTS
     controllerOne = new XBoxController(0);
     controllerTwo = new XBoxController(1);
-    /*
-    spark1.enableDeadbandElimination(true);
-    spark2.enableDeadbandElimination(true);
-    spark3.enableDeadbandElimination(true);
-    spark4.enableDeadbandElimination(true);*/
+    
+    //TODO set elevtor motor ports
+    Elevator = new PWMVictorSPX(4);
     
   }
-  // For example to map the left and right motors, you could define the
-  // following variables to use with your drivetrain subsystem.
-  // public static int leftMotor = 1;
-  // public static int rightMotor = 2;
-
-  // If you are using multiple modules, make sure to define both the port
-  // number and the module. For example you with a rangefinder:
-  // public static int rangefinderPort = 1;
-  // public static int rangefinderModule = 1;
 }
