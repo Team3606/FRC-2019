@@ -24,24 +24,29 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot 
 {
-  public static MecanumSubsystem mecanumSubsystem = new MecanumSubsystem();
+  //make the robotmap
+  public RobotMap robotMap;
+  //make macanical drivesystem
+  public MecanumSubsystem mecanumSubsystem;
+
   public static OI operatorInterface;
-  public RobotMap robotMap = new RobotMap();
 
   // TODO - rename
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
   @Override
+  //This function is run when the robot is first started up and should be used for any initialization code.
   public void robotInit() 
   {
+    //init robot map
+    robotMap = new RobotMap();
+    //init macanum system
+    mecanumSubsystem = new MecanumSubsystem(robotMap);
+
     operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -136,7 +141,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
-    Robot.mecanumSubsystem.drive(robotMap.controllerOne);
+    mecanumSubsystem.drive();
   }
 
   /**
