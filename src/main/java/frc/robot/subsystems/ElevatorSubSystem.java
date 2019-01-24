@@ -45,7 +45,7 @@ public class ElevatorSubSystem extends Subsystem
   public void Teleop()
   {
     //controller
-    if(Map.controllerTwo.LeftYAxis() > 0.2)     //check if its being pressed up
+    if(Map.controllerTwo.LeftYAxis() < -0.2)     //check if its being pressed up
     {
       //check to see if the controller is already pressed
       if(!Pressed)
@@ -54,19 +54,26 @@ public class ElevatorSubSystem extends Subsystem
         SetLevel++;
       }
       Pressed = true;
-    }else if(Map.controllerTwo.LeftYAxis() < -0.2)     //check if its being pressed downn
+    }else if(Map.controllerTwo.LeftYAxis() > 0.2)     //check if its being pressed downn
     {
       //check to see if the controller is already pressed
       if(!Pressed)
       {
         //if not deincrament the set value
-        SetLevel++;
+        SetLevel--;
       }
       Pressed = true;
     }else{//nothing is being pressed that we care about so change pressed to false
       Pressed = false;
     }
-
+    if(SetLevel < 0)
+    {
+      SetLevel = 0;
+    }
+    if(SetLevel > 8)
+    {
+      SetLevel = 8;
+    }
     //TODO implement sensors
 
 

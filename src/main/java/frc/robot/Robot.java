@@ -27,7 +27,9 @@ public class Robot extends TimedRobot
   //make the robotmap
   public RobotMap robotMap;
   //make macanical drivesystem
-  public MecanumSubsystem mecanumSubsystem;
+  public MecanumSubsystem mecanumSystem;
+  //elevador system
+  public ElevatorSubSystem elevadorSystem;
 
   // TODO - rename
   Command m_autonomousCommand;
@@ -39,8 +41,10 @@ public class Robot extends TimedRobot
   {
     //init robot map
     robotMap = new RobotMap();
+    //init elevador system
+    elevadorSystem = new ElevatorSubSystem(robotMap);
     //init macanum system
-    mecanumSubsystem = new MecanumSubsystem(robotMap);
+    mecanumSystem = new MecanumSubsystem(robotMap);
 
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     //chooser.addOption("My Auto", new MyAutoCommand());
@@ -128,7 +132,6 @@ public class Robot extends TimedRobot
     {
       m_autonomousCommand.cancel();
     }
-
   }
 
   /**
@@ -138,7 +141,9 @@ public class Robot extends TimedRobot
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
-    mecanumSubsystem.drive();
+
+    elevadorSystem.Teleop();
+    mecanumSystem.drive();
   }
 
   /**
