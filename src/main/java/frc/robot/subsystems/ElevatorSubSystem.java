@@ -98,11 +98,8 @@ public class ElevatorSubSystem extends Subsystem
     } 
 
     //display values
-    SmartDashboard.putString("DB/String 0", "CurrentLevel");
-    SmartDashboard.putString("DB/String 1", "SetLevel");
-    
-    SmartDashboard.putString("DB/String 5", Integer.toString(CurrentLevel));
-    SmartDashboard.putString("DB/String 6", Integer.toString(SetLevel));
+    SmartDashboard.putString("CurrentLevel", Integer.toString(CurrentLevel));
+    SmartDashboard.putString("SetLevel", Integer.toString(SetLevel));
 
   }
 

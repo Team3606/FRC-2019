@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import team3606.HallEffect;
+import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -121,9 +123,13 @@ public class Robot extends TimedRobot
     Scheduler.getInstance().run();
   }
 
+  CameraServer server = CameraServer.getInstance();
   @Override
   public void teleopInit() 
   {
+    //server.addAxisCamera("cam0");
+      CameraServer.getInstance().startAutomaticCapture();
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -137,11 +143,14 @@ public class Robot extends TimedRobot
   /**
    * This function is called periodically during operator control.
    */
+
+  HallEffect test = new HallEffect(1);
   @Override
   public void teleopPeriodic() 
   {
+    SmartDashboard.setDefaultBoolean("test", test.Check());
     Scheduler.getInstance().run();
-
+    
     elevadorSystem.Teleop();
     mecanumSystem.drive();
   }

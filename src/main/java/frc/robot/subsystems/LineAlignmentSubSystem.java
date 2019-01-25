@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj.SerialPort.*;
  */
 public class LineAlignmentSubSystem extends Subsystem 
 {
+    //make a bool for buttons 
+    boolean IsPressed = false;
+
     //make a robotmap
     RobotMap map;
 
@@ -34,13 +37,19 @@ public class LineAlignmentSubSystem extends Subsystem
 
     public void Teleop()
     {
-
+        if(map.controllerOne.RightTrigger()>=-0.2)
+        {
+            if(!IsPressed)
+            {
+                IsPressed = true;
+                //TODO add code to align the robot
+            }
+        } else IsPressed = false;
     }
 
     @Override
     public void initDefaultCommand() 
     {
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
+        
     }
 }
