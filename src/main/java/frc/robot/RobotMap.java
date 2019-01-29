@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.*;
 //import frc.robot.OI;
 import team3606.XBoxController;
+//import hall effect
+import team3606.HallEffect;;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -24,6 +26,9 @@ public class RobotMap
   public XBoxController controllerOne;
   public XBoxController controllerTwo;
   
+  //hall effect sensor
+  public HallEffect HallEffectSensors[];
+
   //motor for elevator
   public PWMVictorSPX Elevator;
   
