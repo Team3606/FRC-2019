@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import javax.lang.model.util.ElementScanner6;
 
-import com.sun.tools.sjavac.Log.Level;
+//import com.sun.tools.sjavac.Log.Level;
 
 //import robotmap
 import frc.robot.RobotMap;
@@ -253,10 +253,10 @@ public class ElevatorSubSystem extends Subsystem
     switch(CurrentLevel)
     {
       case 0:
-        CurrentLevelName = "Level 1";
+        CurrentLevelName = "pickupball";
       break;
       case 1:
-      CurrentLevelName = "Level 2";
+      CurrentLevelName = "pickup panel";
       break;
       case 2:
       CurrentLevelName = "Level 3";
