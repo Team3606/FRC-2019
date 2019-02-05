@@ -259,22 +259,22 @@ public class ElevatorSubSystem extends Subsystem
       CurrentLevelName = "pickup panel";
       break;
       case 2:
-      CurrentLevelName = "Level 3";
+      CurrentLevelName = "Panel level 1 / cargoship";
       break;
       case 3:
-      CurrentLevelName = "Level 4";
+      CurrentLevelName = "Panel level 2";
       break;
       case 4:
-      CurrentLevelName = "Level 5";
+      CurrentLevelName = "Panel Level 3";
       break;
       case 5:
-      CurrentLevelName = "Level 6";
+      CurrentLevelName = "Ball Level 1";
       break;
       case 6:
-      CurrentLevelName = "Level 7";
+      CurrentLevelName = "Ball Level 2";
       break;
       case 7:
-      CurrentLevelName = "Level 8";
+      CurrentLevelName = "Ball Level 3";
       break;
     }
     SmartDashboard.putString("CurrentLevel", CurrentLevelName);
