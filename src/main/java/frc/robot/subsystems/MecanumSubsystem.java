@@ -23,13 +23,13 @@ import frc.robot.RobotMap;
 public class MecanumSubsystem extends Subsystem 
 {
 
-  //declare motor ports
+  //Declare motors with their ports
   private static final int kFrontLeftChannel = 2;
   private static final int kRearLeftChannel = 3;
   private static final int kFrontRightChannel = 1;
   private static final int kRearRightChannel = 0;
 
-  //make the robot map
+  //Local reference to robot map
   RobotMap map;
   public MecanumSubsystem(RobotMap m)
   {

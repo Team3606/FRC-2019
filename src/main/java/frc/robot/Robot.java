@@ -15,8 +15,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.MecanumSubsystem;
 
 /*
  * The VM is configured to automatically run this class, and to call the
@@ -35,13 +37,25 @@ public class Robot extends TimedRobot
   public MecanumSubsystem mecanumSystem;
   //elevador system
   public ElevatorSubSystem elevadorSystem;
+  public static RobotMap map;
+  public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+  public static MecanumSubsystem mecanumSubsystem = new MecanumSubsystem(map);
+
+  Drive driveCommand = new Drive();
+
+  public static OI operatorInterface;
+
+  CameraServer test;
 
   // TODO - rename
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+  /**
+   * This function is run when the robot is first started up and should be
+   * used for any initialization code.
+   */
   @Override
-  //This function is run when the robot is first started up and should be used for any initialization code.
   public void robotInit() 
   {
     //init robot map
@@ -51,8 +65,9 @@ public class Robot extends TimedRobot
     //init macanum system
     //mecanumSystem = new MecanumSubsystem(robotMap);
 
+    operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    //chooser.addOption("My Auto", new MyAutoCommand());
+    // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -78,7 +93,7 @@ public class Robot extends TimedRobot
   @Override
   public void disabledInit() 
   {
-
+    driveCommand.close();
   }
 
   @Override
@@ -134,6 +149,9 @@ public class Robot extends TimedRobot
     //server.addAxisCamera("cam0");
     //CameraServer.getInstance().startAutomaticCapture();
 
+  @Override
+  public void teleopInit() 
+  {
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -142,6 +160,9 @@ public class Robot extends TimedRobot
     {
       m_autonomousCommand.cancel();
     }
+
+    // driveCommand.start();
+    mecanumSubsystem.drive();//operatorInterface.driverController);
   }
 
   /**
@@ -165,6 +186,10 @@ public class Robot extends TimedRobot
     
     elevadorSystem.Teleop();
     //mecanumSystem.drive();
+  @Override
+  public void teleopPeriodic() 
+  {
+    Scheduler.getInstance().run();
   }
 
   /**
