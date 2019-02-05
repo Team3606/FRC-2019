@@ -37,9 +37,6 @@ public class Robot extends TimedRobot
   public MecanumSubsystem mecanumSystem;
   //elevador system
   public ElevatorSubSystem elevadorSystem;
-  public static RobotMap map;
-  public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-  public static MecanumSubsystem mecanumSubsystem = new MecanumSubsystem(map);
 
   Drive driveCommand = new Drive();
 
@@ -63,12 +60,14 @@ public class Robot extends TimedRobot
     //init elevador system
     elevadorSystem = new ElevatorSubSystem(robotMap);
     //init macanum system
-    //mecanumSystem = new MecanumSubsystem(robotMap);
+    mecanumSystem = new MecanumSubsystem(robotMap);
 
+/*
     operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+  */
   }
 
   /**
@@ -146,12 +145,6 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit() 
   {
-    //server.addAxisCamera("cam0");
-    //CameraServer.getInstance().startAutomaticCapture();
-
-  @Override
-  public void teleopInit() 
-  {
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -161,35 +154,27 @@ public class Robot extends TimedRobot
       m_autonomousCommand.cancel();
     }
 
-    // driveCommand.start();
+    server.addAxisCamera("cam0");
+    CameraServer.getInstance().startAutomaticCapture();
+
+    driveCommand.start();
     mecanumSubsystem.drive();//operatorInterface.driverController);
   }
 
   /**
    * This function is called periodically during operator control.
    */
-
-  HallEffect test = new HallEffect(1);
   
   @Override
   public void teleopPeriodic() 
   {
-
-    int a[] = t.Read();
-
-    //String mode = Integer.toString(a[0]) + Integer.toString(a[1]) + Integer.toString(a[2]);
-
-    //SmartDashboard.putString("testing arduino", mode);
-
-    SmartDashboard.setDefaultBoolean("test", test.Check());
     Scheduler.getInstance().run();
-    
+
+    //macanum system driv update
+    mecanumSystem.drive();
+
+    //elevador system udate
     elevadorSystem.Teleop();
-    //mecanumSystem.drive();
-  @Override
-  public void teleopPeriodic() 
-  {
-    Scheduler.getInstance().run();
   }
 
   /**

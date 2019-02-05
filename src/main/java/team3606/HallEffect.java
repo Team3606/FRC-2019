@@ -1,5 +1,5 @@
 package team3606;
-
+//NOT USED
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class HallEffect{
