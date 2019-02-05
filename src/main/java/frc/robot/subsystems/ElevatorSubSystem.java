@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ElevatorSubSystem extends Subsystem 
 {
+  //TODO set level heights level heights
+  int Heights[] = {0,1,2,3,4,5,6,7};
   //level names
   String CurrentLevelName = "";
   String SetLevelName = "";
@@ -59,6 +61,34 @@ public class ElevatorSubSystem extends Subsystem
   
   public void Teleop()
   {
+
+    //set the level from ultrasonic sensor
+    if(Heights[0]+1 > Map.Ultra.getRangeInches()&& Heights[0]-1 < Map.Ultra.getRangeInches())//first level
+    {
+      CurrentLevel = 1;
+    }else if(Heights[1]+1 > Map.Ultra.getRangeInches()&& Heights[1]-1 < Map.Ultra.getRangeInches())//seconed level
+    {
+      CurrentLevel = 2;
+    }else if(Heights[2]+1 > Map.Ultra.getRangeInches()&& Heights[2]-1 < Map.Ultra.getRangeInches())//third level
+    {
+      CurrentLevel = 3;
+    }else if(Heights[3]+1 > Map.Ultra.getRangeInches()&& Heights[3]-1 < Map.Ultra.getRangeInches())//forth level
+    {
+      CurrentLevel = 4;
+    }else if(Heights[4]+1 > Map.Ultra.getRangeInches()&& Heights[4]-1 < Map.Ultra.getRangeInches())//fith level
+    {
+      CurrentLevel = 5;
+    }else if(Heights[5]+1 > Map.Ultra.getRangeInches()&& Heights[5]-1 < Map.Ultra.getRangeInches())//sith level
+    {
+      CurrentLevel = 6;
+    }else if(Heights[6]+1 > Map.Ultra.getRangeInches()&& Heights[6]-1 < Map.Ultra.getRangeInches())//seventh level
+    {
+      CurrentLevel = 7;
+    }else if(Heights[7]+1 > Map.Ultra.getRangeInches()&& Heights[7]-1 < Map.Ultra.getRangeInches())//eighth level
+    {
+      CurrentLevel = 8;
+    }
+    
     //check for a switch in modes 
     if(Map.controllerTwo.Y_Button())
     {
@@ -309,6 +339,8 @@ public class ElevatorSubSystem extends Subsystem
     }
     SmartDashboard.putString("SetLevel", SetLevelName);
 
+    //display the level 
+    SmartDashboard.putNumber("CurrentHeight", Map.Ultra.getRangeInches());
   }
 
   @Override

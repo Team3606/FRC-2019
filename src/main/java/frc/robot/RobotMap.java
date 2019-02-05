@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.*;
 //import frc.robot.OI;
 import team3606.XBoxController;
 //import hall effect
-import team3606.HallEffect;;
+import team3606.HallEffect;
+//ultrasonic
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -25,7 +27,10 @@ public class RobotMap
   //controllers
   public XBoxController controllerOne;
   public XBoxController controllerTwo;
-  
+
+  //ultrasonic sensor
+	public Ultrasonic Ultra;
+
   //hall effect sensor
   public HallEffect HallEffectSensors[];
 
@@ -41,6 +46,9 @@ public class RobotMap
     
     //TODO set elevtor motor ports
     Elevator = new PWMVictorSPX(4);
+
+    //TODO Set ultrasonic sensor port
+    Ultra = new Ultrasonic(1,1);
     
   }
 }

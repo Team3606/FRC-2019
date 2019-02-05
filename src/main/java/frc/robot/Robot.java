@@ -157,8 +157,12 @@ public class Robot extends TimedRobot
     server.addAxisCamera("cam0");
     CameraServer.getInstance().startAutomaticCapture();
 
-    driveCommand.start();
-    mecanumSubsystem.drive();//operatorInterface.driverController);
+    //driveCommand.start();
+    
+    //run elevador system
+    elevadorSystem.Teleop();
+    //run macanum system
+    mecanumSystem.drive();//operatorInterface.driverController);
   }
 
   /**
