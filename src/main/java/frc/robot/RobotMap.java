@@ -23,7 +23,13 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  */
 public class RobotMap 
 {
-  
+  //pnumatics
+  //compressor
+  public Compressor compressor;
+
+  //make objet for the claw
+  public DoubleSolenoid clawSolenoid;
+
   //controllers
   public XBoxController controllerOne;
   public XBoxController controllerTwo;
@@ -40,6 +46,15 @@ public class RobotMap
   //connect to arduion for line reader
   RobotMap()
   {
+    //set compressor port
+    compressor = new Compressor(0);
+
+    //set automatic
+    compressor.setClosedLoopControl(false);
+
+    //TODO set solinoid ports
+    clawSolenoid = new DoubleSolenoid(1, 2);
+
     //SET CONTROLLER PORTS
     controllerOne = new XBoxController(0);
     controllerTwo = new XBoxController(1);
