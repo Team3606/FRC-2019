@@ -15,7 +15,7 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.SerialPort.*;
 
 /**
- * An example subsystem.  You can replace me with your own Subsystem.
+ * line alignment system
  */
 public class LineAlignmentSubSystem extends Subsystem 
 {

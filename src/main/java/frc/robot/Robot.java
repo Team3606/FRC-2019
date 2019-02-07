@@ -30,7 +30,7 @@ import frc.robot.subsystems.MecanumSubsystem;
 public class Robot extends TimedRobot 
 {
   //make a pixy
-  Pixy t = new Pixy(0);
+  //Pixy t = new Pixy(0);
   //make the robotmap
   public RobotMap robotMap;
   //make macanical drivesystem
@@ -154,11 +154,11 @@ public class Robot extends TimedRobot
       m_autonomousCommand.cancel();
     }
 
-    server.addAxisCamera("cam0");
-    CameraServer.getInstance().startAutomaticCapture();
+    //server.addAxisCamera("cam0");
+    //CameraServer.getInstance().startAutomaticCapture();
 
     //driveCommand.start();
-    
+
     //run elevador system
     elevadorSystem.Teleop();
     //run macanum system

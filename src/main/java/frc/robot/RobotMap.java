@@ -63,7 +63,7 @@ public class RobotMap
     Elevator = new PWMVictorSPX(4);
 
     //TODO Set ultrasonic sensor port
-    Ultra = new Ultrasonic(1,1);
+    Ultra = new Ultrasonic(5,6);
     
   }
 }

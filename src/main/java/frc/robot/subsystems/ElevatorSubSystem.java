@@ -9,8 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import javax.lang.model.util.ElementScanner6;
-
 //import com.sun.tools.sjavac.Log.Level;
 
 //import robotmap
@@ -88,7 +86,7 @@ public class ElevatorSubSystem extends Subsystem
     {
       CurrentLevel = 8;
     }
-    
+
     //check for a switch in modes 
     if(Map.controllerTwo.Y_Button())
     {

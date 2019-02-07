@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
 /**
  * Main drive command. Basically just a shell to follow Subsystem/Command structure
