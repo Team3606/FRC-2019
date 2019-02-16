@@ -26,9 +26,6 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
  */
 public class RobotMap 
 {
-  //gyro
-  public AHRS Gyro;
-
   //pnumatics
   //compressor
   public Compressor compressor;
@@ -36,19 +33,23 @@ public class RobotMap
   //make objet for the claw
   public DoubleSolenoid clawSolenoid;
 
+  //makemotors for claw
+  public PWMVictorSPX LeftClawMotor;
+  public PWMVictorSPX RightClawMotor;
+
   //controllers
   public XBoxController controllerOne;
   public XBoxController controllerTwo;
 
   //ultrasonic sensor
-	public Ultrasonic Ultra;
+	public AnalogInput Ultra;
 
   //hall effect sensor
   public HallEffect HallEffectSensors[];
 
   //motors for elevator
-  public PWMVictorSPX BottemElevador;
-  public PWMVictorSPX TopElevador;
+  public PWMVictorSPX LeftElevador;
+  public PWMVictorSPX RightElevador;
   
   //connect to arduion for line reader
   RobotMap()
@@ -67,15 +68,18 @@ public class RobotMap
     controllerTwo = new XBoxController(1);
     
     //TODO bottem motor set elevtor motor ports
-    BottemElevador = new PWMVictorSPX(5);
+    LeftElevador = new PWMVictorSPX(5);
 
     //TODO top motor set elevtor motor ports
-    TopElevador = new PWMVictorSPX(4);
+    RightElevador = new PWMVictorSPX(4);
 
     //TODO Set ultrasonic sensor port
-    Ultra = new Ultrasonic(5,6);
+    Ultra = new AnalogInput(2);
 
-    //gyro
-    Gyro = new AHRS(Port.kUSB);
+    //TODO set claw motor ports
+      
+    LeftClawMotor = new PWMVictorSPX(11);
+    RightClawMotor = new PWMVictorSPX(10);
+
   }
 }

@@ -49,6 +49,8 @@ public class ClawSystem extends Subsystem
   //teleop functions
   public void Teleop()
   {
+    //control the claw acuator
+    //Map.LeftClawMotor.set(Map.controllerTwo.);
     if(Map.controllerTwo.RightBumper())//is the right bumber pressed
     {
       if(!Pressed)
