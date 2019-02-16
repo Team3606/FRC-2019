@@ -54,7 +54,9 @@ public class MecanumSubsystem extends Subsystem
   //Hardcoded to use the joypad that will be defined in OI. Maybe pass instead?
   public void drive()
   {
-    mecanumDrive.driveCartesian(map.controllerOne.LeftXAxis()/2, map.controllerOne.LeftYAxis()/2, map.controllerOne.RightXAxis()/2, 0.0);
+    
+    mecanumDrive.driveCartesian((map.controllerOne.LeftTrigger()/2*-1)+(map.controllerOne.RightTrigger()/2), map.controllerOne.LeftYAxis()/2, map.controllerOne.LeftXAxis()/2, map.gyro.getAngle());
+  
   }
 
   @Override

@@ -6,6 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+//import gyroscope lib
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.*;
 //import frc.robot.OI;
@@ -14,6 +16,7 @@ import team3606.XBoxController;
 import team3606.HallEffect;
 //ultrasonic
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -40,12 +43,21 @@ public class RobotMap
   //hall effect sensor
   public HallEffect HallEffectSensors[];
 
-  //motor for elevator
-  public PWMVictorSPX Elevator;
+  //motor for testing
+  public Talon TestMotor;
+
+  //motor for testing
+  public Talon TestMotor2;
+
+  //gyroscope
+  public AHRS gyro;
   
   //connect to arduion for line reader
   RobotMap()
   {
+    //set gyro port
+    gyro = new AHRS(Port.kUSB);
+
     //set compressor port
     compressor = new Compressor(0);
 
@@ -60,7 +72,10 @@ public class RobotMap
     controllerTwo = new XBoxController(1);
     
     //TODO set elevtor motor ports
-    Elevator = new PWMVictorSPX(4);
+    TestMotor = new Talon(0);
+
+    //TODO set elevtor motor ports
+    TestMotor2 = new Talon(1);
 
     //TODO Set ultrasonic sensor port
     Ultra = new Ultrasonic(5,6);

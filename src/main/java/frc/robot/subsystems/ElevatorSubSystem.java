@@ -3,7 +3,7 @@
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------
 
 package frc.robot.subsystems;
 
@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * system for the elevator
- */
+ 
 public class ElevatorSubSystem extends Subsystem 
 {
   //TODO set level heights level heights
@@ -346,3 +346,4 @@ public class ElevatorSubSystem extends Subsystem
   {
   }
 }
+*/
