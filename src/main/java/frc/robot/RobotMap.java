@@ -38,7 +38,7 @@ public class RobotMap
   public XBoxController controllerTwo;
 
   //ultrasonic sensor
-	public Ultrasonic Ultra;
+	public AnalogInput Ultra;
 
   //hall effect sensor
   public HallEffect HallEffectSensors[];
@@ -78,7 +78,8 @@ public class RobotMap
     TestMotor2 = new Talon(1);
 
     //TODO Set ultrasonic sensor port
-    Ultra = new Ultrasonic(5,6);
+    Ultra = new AnalogInput(2);
+    //Ultra.setAutomaticMode(true);
     
   }
 }

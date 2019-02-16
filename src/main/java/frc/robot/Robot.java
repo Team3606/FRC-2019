@@ -137,7 +137,7 @@ public class Robot extends TimedRobot
     Scheduler.getInstance().run();
   }
 
-  CameraServer server = CameraServer.getInstance();
+  //CameraServer server = CameraServer.getInstance();
 
   @Override
   public void teleopInit() 
@@ -178,9 +178,9 @@ public class Robot extends TimedRobot
     //mecanumSystem.drive();
 
     //elevador system udate
-    robotMap.TestMotor.set(robotMap.gyro.getAngle()/360);
-    robotMap.TestMotor2.set(robotMap.gyro.getAngle()/360);
-    SmartDashboard.putString("test2", Double.toString(robotMap.gyro.getAngle()));
+    //robotMap.TestMotor.set(robotMap.gyro.getAngle()/360);
+    //robotMap.TestMotor2.set(robotMap.gyro.getAngle()/360);
+    SmartDashboard.putString("test2", Double.toString(robotMap.Ultra.getAverageVoltage()/(0.15869139000000002/18)));
     
   }
 
