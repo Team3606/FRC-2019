@@ -21,6 +21,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ElevatorSubSystem extends Subsystem 
 {
+  //TODO set switch level
+  double switchLevel;
+
   //TODO set level heights level heights
   int Heights[] = {0,1,2,3,4,5,6,7};
   //level names
@@ -253,28 +256,31 @@ public class ElevatorSubSystem extends Subsystem
       SetLevel = 8;
     }
     //TODO implement sensors
+    
 
-
-
+    //TODO set up motors
     //is it below
     if(CurrentLevel < SetLevel)
     {
-      Map.Elevator.set(0.2);
-      SmartDashboard.putBoolean("Is current level = to set level", false);
+      if(Map.Ultra.getRangeInches() > switchLevel)
+      {
+        Map.TopElevador.set(0.2);
+      }else{
+        Map.BottemElevador.set(0.2);
+      }
+        SmartDashboard.putBoolean("Is current level = to set level", false);
     }
     //is it above
     if(CurrentLevel > SetLevel)
     {
-      Map.Elevator.set(-0.2);
-      SmartDashboard.putBoolean("Is current level = to set level", false);
+      if(Map.Ultra.getRangeInches() > switchLevel)
+      {
+        Map.TopElevador.set(-0.2);
+      }else{
+        Map.BottemElevador.set(-0.2);
+      }
+        SmartDashboard.putBoolean("Is current level = to set level", false);
     }
-    //is it at the set level
-    if(CurrentLevel == SetLevel)
-    {
-      Map.Elevator.set(0.0);
-      SmartDashboard.putBoolean("Is current level = to set level", true);
-    } 
-
     //display values
 
     //display the level name

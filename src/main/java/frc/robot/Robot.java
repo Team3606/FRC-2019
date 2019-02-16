@@ -179,6 +179,9 @@ public class Robot extends TimedRobot
 
     //elevador system udate
     elevadorSystem.Teleop();
+
+    //print out gyro
+    SmartDashboard.putString("GyroScrope", Double.toString(robotMap.Gyro.getAngle()));
   }
 
   /**
