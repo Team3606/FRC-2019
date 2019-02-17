@@ -184,7 +184,6 @@ public class Robot extends TimedRobot
     //elevador system udate
     clawSystem.Teleop();
     
-    SmartDashboard.putBoolean("is the limit switch pressed?",robotMap.Switch1.CheckState());
   }
 
   /**

@@ -19,6 +19,9 @@ import team3606.LimitSwitch;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 
+//import robotmap
+import frc.robot.RobotMap;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -54,7 +57,8 @@ public class RobotMap
   public AHRS gyro;
   
   //limit switches
-  public LimitSwitch Switch1;
+  public LimitSwitch BottemClawSwitch;
+  public LimitSwitch TopClawSwitch;
 
   //connect to arduion for line reader
   RobotMap()
@@ -75,18 +79,23 @@ public class RobotMap
     controllerOne = new XBoxController(0);
     controllerTwo = new XBoxController(1);
     
+    TestMotor.kReverse(true);
+    TestMotor2.kReverse(true);
+    
     //TODO set elevtor motor ports
     TestMotor = new Talon(0);
 
     //TODO set elevtor motor ports
     TestMotor2 = new Talon(1);
 
+
     //TODO Set ultrasonic sensor port
     Ultra = new AnalogInput(2);
     //Ultra.setAutomaticMode(true);
 
     //init the limit switch
-    Switch1 = new LimitSwitch(0);
+    BottemClawSwitch = new LimitSwitch(0);
+    TopClawSwitch = new LimitSwitch(1);
     
   }
 }

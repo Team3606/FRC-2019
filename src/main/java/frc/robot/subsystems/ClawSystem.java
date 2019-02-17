@@ -49,18 +49,36 @@ public class ClawSystem extends Subsystem
   //teleop functions
   public void Teleop()
   { 
-    SmartDashboard.putBoolean("is the limit switch pressed?",!Map.Switch1.CheckState());
-
-    //if its not being moved lock the motor or if it hits the bottem
-    if((Map.controllerTwo.LeftYAxis() < 0.2 && Map.controllerTwo.LeftYAxis() > -0.2)||!Map.Switch1.CheckState() && Map.controllerTwo.LeftYAxis()<0)
+    
+    //if its not being moved lock the motor or if it hits the bottem or top
+    //check to see if it hits the bottem
+    if((Map.controllerTwo.LeftYAxis() < 0.2 && Map.controllerTwo.LeftYAxis() > -0.2)||!Map.BottemClawSwitch.CheckState() && Map.controllerTwo.LeftYAxis()<0)
     {
+      //display position
+      //lock
       Map.TestMotor.set(-0.1);
       Map.TestMotor2.set(0.1);
-    }else
+      //check to see if it hits the top
+    }else if((Map.controllerTwo.LeftYAxis() < 0.2 && Map.controllerTwo.LeftYAxis() > -0.2)||!Map.TopClawSwitch.CheckState() && Map.controllerTwo.LeftYAxis()>0)
     {
+      //display position
+      //lock
+      Map.TestMotor.set(-0.1);
+      Map.TestMotor2.set(0.1);
+
+    }else{
       //control the claw acuator
-      Map.TestMotor.set(Map.controllerTwo.LeftYAxis()/4);
-      Map.TestMotor2.set(Map.controllerTwo.LeftYAxis()/4);
+      //check t see if its going up or down
+      if(Map.controllerTwo.LeftYAxis() >0)
+      {
+        //go up faster then you go down
+        Map.TestMotor.set(Map.controllerTwo.LeftYAxis()/3);
+        Map.TestMotor2.set(Map.controllerTwo.LeftYAxis()/3);
+      }else{
+        //go down slower then going up
+        Map.TestMotor.set(Map.controllerTwo.LeftYAxis()/4);
+        Map.TestMotor2.set(Map.controllerTwo.LeftYAxis()/4);
+      }
     }
 
     if(Map.controllerTwo.RightBumper())//is the right bumber pressed
