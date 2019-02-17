@@ -25,13 +25,16 @@ public class ElevatorSubSystem extends Subsystem
   double switchLevel;
 
   //TODO set level heights level heights
-  int Heights[] = {0,1,2,3,4,5,6,7};
+  double Heights[] = {(12*4),12.5,12+7,(12*3),(6*12)+3,24+3.25,(4+12)+7.5,(12*7)+10};
   //level names
   String CurrentLevelName = "";
   String SetLevelName = "";
 
   //make a storage varable for the mode
-  String mode = "PanelMode";
+  String mode = "Manual";
+
+  //save the mode for when you go into manual
+  String save = "";
 
   //make a varable to hold the direction the Dpad is being pressed
   String DPad = "none";
@@ -62,36 +65,8 @@ public class ElevatorSubSystem extends Subsystem
   
   public void Teleop()
   {
-
-    //set the level from ultrasonic sensor
-    if(Heights[0]+1 > Map.Ultra.getRangeInches()&& Heights[0]-1 < Map.Ultra.getRangeInches())//first level
-    {
-      CurrentLevel = 1;
-    }else if(Heights[1]+1 > Map.Ultra.getRangeInches()&& Heights[1]-1 < Map.Ultra.getRangeInches())//seconed level
-    {
-      CurrentLevel = 2;
-    }else if(Heights[2]+1 > Map.Ultra.getRangeInches()&& Heights[2]-1 < Map.Ultra.getRangeInches())//third level
-    {
-      CurrentLevel = 3;
-    }else if(Heights[3]+1 > Map.Ultra.getRangeInches()&& Heights[3]-1 < Map.Ultra.getRangeInches())//forth level
-    {
-      CurrentLevel = 4;
-    }else if(Heights[4]+1 > Map.Ultra.getRangeInches()&& Heights[4]-1 < Map.Ultra.getRangeInches())//fith level
-    {
-      CurrentLevel = 5;
-    }else if(Heights[5]+1 > Map.Ultra.getRangeInches()&& Heights[5]-1 < Map.Ultra.getRangeInches())//sith level
-    {
-      CurrentLevel = 6;
-    }else if(Heights[6]+1 > Map.Ultra.getRangeInches()&& Heights[6]-1 < Map.Ultra.getRangeInches())//seventh level
-    {
-      CurrentLevel = 7;
-    }else if(Heights[7]+1 > Map.Ultra.getRangeInches()&& Heights[7]-1 < Map.Ultra.getRangeInches())//eighth level
-    {
-      CurrentLevel = 8;
-    }
-
     //check for a switch in modes 
-    if(Map.controllerTwo.Y_Button())
+    if(Map.controllerTwo.Y_Button()&&mode != "Manual")
     {
       if(!Pressed)
       {
@@ -99,7 +74,7 @@ public class ElevatorSubSystem extends Subsystem
         Manual = false;
       }
       Pressed = true;
-    }else if(Map.controllerTwo.B_Button())
+    }else if(Map.controllerTwo.B_Button()&&mode != "Manual")
     {
       if(!Pressed)
       {
@@ -108,7 +83,7 @@ public class ElevatorSubSystem extends Subsystem
       }
       Pressed = true;
       
-    }else if(Map.controllerTwo.X_Button())
+    }else if(Map.controllerTwo.X_Button()&&mode != "Manual")
     {
       if(!Pressed)
       {
@@ -117,7 +92,7 @@ public class ElevatorSubSystem extends Subsystem
       }
       Pressed = true;
       
-    }else if(Map.controllerTwo.A_Button())
+    }else if(Map.controllerTwo.A_Button()&&mode != "Manual")
     {
       if(!Pressed)
       {
@@ -125,8 +100,20 @@ public class ElevatorSubSystem extends Subsystem
         Manual = false;
       }
       Pressed = true;
-      
-    }else if(Map.controllerTwo.LeftYAxis() < -0.2)     //check if its being pressed up
+    }else if(Map.controllerTwo.StartButton())// to/from manual
+    {
+      if(!Pressed)
+      {
+        if(mode == "Manual")
+        {
+          mode = save;
+        }else 
+          save = mode;
+          mode = "Manual";
+        Manual = false;
+      }
+      Pressed = true;
+    }else if(Map.controllerTwo.Controller.getPOV()==0&&mode != "Manual")     //check if its being pressed up
     {
       if(!Pressed)
       {
@@ -135,7 +122,7 @@ public class ElevatorSubSystem extends Subsystem
       }
       Pressed = true;
 
-    }else if(Map.controllerTwo.LeftYAxis() > 0.2)     //check if its being pressed down
+    }else if(Map.controllerTwo.Controller.getPOV()==180&&mode != "Manual")     //check if its being pressed down
     {
       if(!Pressed)
       {
@@ -144,7 +131,7 @@ public class ElevatorSubSystem extends Subsystem
       }
       Pressed = true;
       
-    }else if(Map.controllerTwo.LeftXAxis() > 0.2)     //check if its being pressed left
+    }else if(Map.controllerTwo.Controller.getPOV()==270&&mode != "Manual")     //check if its being pressed left
     {
       if(!Pressed)
       {
@@ -153,7 +140,7 @@ public class ElevatorSubSystem extends Subsystem
       }
       Pressed = true;
       
-    }else if(Map.controllerTwo.LeftXAxis() < -0.2)     //check if its being pressed right
+    }else if(Map.controllerTwo.Controller.getPOV()==90&&mode != "Manual")     //check if its being pressed right
     {
       if(!Pressed)
       {
@@ -198,7 +185,7 @@ public class ElevatorSubSystem extends Subsystem
       switch(DPad)
       {
         case "Left":
-        SetLevel = 3;
+        SetLevel = 5;
         break;
         case "Up":
         SetLevel = 6;
@@ -255,31 +242,32 @@ public class ElevatorSubSystem extends Subsystem
     {
       SetLevel = 8;
     }
-    //TODO implement sensors
-    
 
     //TODO set up motors
     //is it below
-    if(CurrentLevel < SetLevel)
+    if(Heights[CurrentLevel] < Heights[SetLevel]&&mode != "Manual")
     {
-      if(Map.Ultra.getRangeInches() > switchLevel)
-      {
-        Map.TopElevador.set(0.2);
-      }else{
-        Map.BottemElevador.set(0.2);
-      }
-        SmartDashboard.putBoolean("Is current level = to set level", false);
+      Map.LeftElevador.set(0.4);
+      Map.LeftElevador.set(-0.4);
     }
     //is it above
-    if(CurrentLevel > SetLevel)
+    if(Heights[CurrentLevel] > Heights[SetLevel]&&mode != "Manual")
     {
-      if(Map.Ultra.getRangeInches() > switchLevel)
-      {
-        Map.TopElevador.set(-0.2);
-      }else{
-        Map.BottemElevador.set(-0.2);
-      }
-        SmartDashboard.putBoolean("Is current level = to set level", false);
+      Map.LeftElevador.set(-0.4);
+      Map.LeftElevador.set(0.4);
+    }
+    //use the right up and down if its set to manual
+    if(mode == "Manual")
+    {
+      Map.LeftElevador.set(Map.controllerTwo.RightXAxis()/3); 
+      Map.LeftElevador.set(-Map.controllerTwo.RightXAxis()/3); 
+    }
+    //is it on the level
+    if(CurrentLevel == SetLevel)
+    {
+      //lock the motors
+      Map.LeftElevador.set(0.2);
+      Map.LeftElevador.set(0.2);
     }
     //display values
 
@@ -343,8 +331,8 @@ public class ElevatorSubSystem extends Subsystem
     }
     SmartDashboard.putString("SetLevel", SetLevelName);
 
-    //display the level 
-    SmartDashboard.putNumber("CurrentHeight", Map.Ultra.getRangeInches());
+    //display the height 
+    SmartDashboard.putNumber("CurrentHeight", Map.Ultra.getAverageVoltage()/(0.15869139000000002/18));
   }
 
   @Override
