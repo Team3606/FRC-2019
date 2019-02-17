@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import com.kauailabs.navx.frc.AHRS;
 import team3606.Pixy;
 import team3606.HallEffect;
 import edu.wpi.first.cameraserver.*;
@@ -37,6 +36,9 @@ public class Robot extends TimedRobot
   //make macanical drivesystem
   //public MecanumSubsystem mecanumSystem;
   //elevador system
+  //public ElevatorSubSystem elevadorSystem;
+  //claw system
+  public ClawSystem clawSystem;
 
   Drive driveCommand = new Drive();
 
@@ -55,10 +57,15 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
+    //init robot map
+    robotMap = new RobotMap();
     //init elevador system
+   // elevadorSystem = new ElevatorSubSystem(robotMap);
     //init macanum system
     //mecanumSystem = new MecanumSubsystem(robotMap);
 
+    //init claw system
+    clawSystem = new ClawSystem(robotMap);
 /*
     operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -137,14 +144,11 @@ public class Robot extends TimedRobot
     Scheduler.getInstance().run();
   }
 
-  //CameraServer server = CameraServer.getInstance();
+  CameraServer server = CameraServer.getInstance();
 
   @Override
   public void teleopInit() 
   {
-    //init robot map
-    robotMap = new RobotMap();
-    
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -160,7 +164,7 @@ public class Robot extends TimedRobot
     //driveCommand.start();
 
     //run elevador system
-    
+    //elevadorSystem.Teleop();
     //run macanum system
     //mecanumSystem.drive();//operatorInterface.driverController);
   }
@@ -176,12 +180,11 @@ public class Robot extends TimedRobot
 
     //macanum system driv update
     //mecanumSystem.drive();
-
+    //robotMap.TestMotor.set(1);
     //elevador system udate
-    //robotMap.TestMotor.set(robotMap.gyro.getAngle()/360);
-    //robotMap.TestMotor2.set(robotMap.gyro.getAngle()/360);
-    SmartDashboard.putString("test2", Double.toString(robotMap.Ultra.getAverageVoltage()/(0.15869139000000002/18)));
+    clawSystem.Teleop();
     
+    SmartDashboard.putBoolean("is the limit switch pressed?",robotMap.Switch1.CheckState());
   }
 
   /**

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.*;
 import team3606.XBoxController;
 //import hall effect
 import team3606.HallEffect;
+import team3606.LimitSwitch;
 //ultrasonic
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -52,6 +53,9 @@ public class RobotMap
   //gyroscope
   public AHRS gyro;
   
+  //limit switches
+  public LimitSwitch Switch1;
+
   //connect to arduion for line reader
   RobotMap()
   {
@@ -80,6 +84,9 @@ public class RobotMap
     //TODO Set ultrasonic sensor port
     Ultra = new AnalogInput(2);
     //Ultra.setAutomaticMode(true);
+
+    //init the limit switch
+    Switch1 = new LimitSwitch(0);
     
   }
 }
