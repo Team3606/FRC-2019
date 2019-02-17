@@ -12,6 +12,8 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.*;
 //import frc.robot.OI;
 import team3606.XBoxController;
+//import  limit switches
+import team3606.LimitSwitch;
 //import hall effect
 import team3606.HallEffect;
 //ultrasonic
@@ -51,6 +53,8 @@ public class RobotMap
   public PWMVictorSPX LeftElevador;
   public PWMVictorSPX RightElevador;
   
+  //limit switches
+  public LimitSwitch 
   //connect to arduion for line reader
   RobotMap()
   {
