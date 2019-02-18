@@ -7,6 +7,10 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 //import com.sun.tools.sjavac.Log.Level;
@@ -245,32 +249,24 @@ public class ElevatorSubSystem extends Subsystem
 
     //TODO set up motors
     //is it below
-    if(Heights[CurrentLevel] < Heights[SetLevel]&&mode != "Manual")
+    if(Heights[CurrentLevel] < Heights[SetLevel]&&mode != "Manual" && !Map.TopElevadorSwitch.CheckState())
     {
       Map.LeftElevador.set(0.4);
-      Map.LeftElevador.set(-0.4);
+      Map.LeftElevador.set(-0.4); 
     }
     //is it above
-    if(Heights[CurrentLevel] > Heights[SetLevel]&&mode != "Manual")
+    if(Heights[CurrentLevel] > Heights[SetLevel]&&mode != "Manual"&& !Map.BottemElevadorSwitch.CheckState())
     {
-      Map.LeftElevador.set(-0.4);
-      Map.LeftElevador.set(0.4);
+      //Map.LeftElevador.set(-0.4);
+      //Map.LeftElevador.set(0.4);
     }
     //use the right up and down if its set to manual
     if(mode == "Manual")
     {
-      Map.LeftElevador.set(Map.controllerTwo.RightXAxis()/3); 
-      Map.LeftElevador.set(-Map.controllerTwo.RightXAxis()/3); 
+      
+      Map.RightElevador.set(Map.controllerTwo.LeftYAxis()/3); 
+      Map.LeftElevador.set(-Map.controllerTwo.LeftYAxis()/3); 
     }
-    //is it on the level
-    if(CurrentLevel == SetLevel)
-    {
-      //lock the motors
-      Map.LeftElevador.set(0.2);
-      Map.LeftElevador.set(0.2);
-    }
-    //display values
-
     //display the level name
     switch(CurrentLevel)
     {
@@ -300,36 +296,6 @@ public class ElevatorSubSystem extends Subsystem
       break;
     }
     SmartDashboard.putString("CurrentLevel", CurrentLevelName);
-
-    //display the level its set to
-    switch(CurrentLevel)
-    {
-      case 0:
-      SetLevelName = "Level 1";
-      break;
-      case 1:
-      SetLevelName = "Level 2";
-      break;
-      case 2:
-      SetLevelName = "Level 3";
-      break;
-      case 3:
-      SetLevelName = "Level 4";
-      break;
-      case 4:
-      SetLevelName = "Level 5";
-      break;
-      case 5:
-      SetLevelName = "Level 6";
-      break;
-      case 6:
-      SetLevelName = "Level 7";
-      break;
-      case 7:
-      SetLevelName = "Level 8";
-      break;
-    }
-    SmartDashboard.putString("SetLevel", SetLevelName);
 
     //display the height 
     SmartDashboard.putNumber("CurrentHeight", Map.Ultra.getAverageVoltage()/(0.15869139000000002/18));

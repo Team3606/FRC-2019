@@ -50,41 +50,36 @@ public class ClawSystem extends Subsystem
   public void Teleop()
   {
 
-    //if its not being moved lock the motor or if it hits the bottem or top
-    //check to see if it hits the bottem
-    if((Map.controllerTwo.LeftYAxis() < 0.2 && Map.controllerTwo.LeftYAxis() > -0.2)||!Map.BottemClawSwitch.CheckState() && Map.controllerTwo.LeftYAxis()<0)
-    {
-      //display position
-      SmartDashboard.putString("Claw Position","Bottem");
-      //lock
-      Map.LeftClawMotor.set(-0.1);
-      Map.RightClawMotor.set(0.1);
-      //check to see if it hits the top
-    }else if((Map.controllerTwo.LeftYAxis() < 0.2 && Map.controllerTwo.LeftYAxis() > -0.2)||!Map.BottemClawSwitch.CheckState() && Map.controllerTwo.LeftYAxis()>0)
-    {
-      //display position
-      SmartDashboard.putString("Claw Position","Top");
-      //lock
-      Map.LeftClawMotor.set(-0.1);
-      Map.RightClawMotor.set(0.1);
-
-    }else{
-      //control the claw acuator
-      //check t see if its going up or down
-      SmartDashboard.putString("Claw Position","Middle");
-      if(Map.controllerTwo.LeftYAxis() >0)
-      {
-        //go up faster then you go down
-        Map.LeftClawMotor.set(Map.controllerTwo.LeftYAxis()/3);
-        Map.RightClawMotor.set(Map.controllerTwo.LeftYAxis()/3);
-      }else{
-        //go down slower then going up
-        Map.LeftClawMotor.set(Map.controllerTwo.LeftYAxis()/4);
-        Map.RightClawMotor.set(Map.controllerTwo.LeftYAxis()/4);
-      }
-    }
-
-
+     //check to see if it hits the bottem
+     if((-Map.controllerTwo.LeftYAxis() < 0.2 && -Map.controllerTwo.LeftYAxis() > -0.2)||!Map.BottemClawSwitch.CheckState() && -Map.controllerTwo.LeftYAxis()<0)
+     {
+       //display position
+       //lock
+       Map.RightClawMotor.set(-0.1);
+       Map.LeftClawMotor.set(0.1);
+       //check to see if it hits the top
+     }else if((-Map.controllerTwo.LeftYAxis() < 0.2 && -Map.controllerTwo.LeftYAxis() > -0.2)||!Map.TopClawSwitch.CheckState() && -Map.controllerTwo.LeftYAxis()>0)
+     {
+       //display position
+       //lock
+       Map.RightClawMotor.set(-0.1);
+       Map.LeftClawMotor.set(0.1);
+ 
+     }else{
+       //control the claw acuator
+       //check t see if its going up or down
+       if(-Map.controllerTwo.LeftYAxis() >0)
+       {
+         //go up faster then you go down
+         Map.RightClawMotor.set(-Map.controllerTwo.LeftYAxis()/3);
+         Map.LeftClawMotor.set(-Map.controllerTwo.LeftYAxis()/3);
+       }else{
+         //go down slower then going up
+         Map.RightClawMotor.set(-Map.controllerTwo.LeftYAxis()/4);
+         Map.LeftClawMotor.set(-Map.controllerTwo.LeftYAxis()/4);
+       }
+     }
+  
     //control the claw acuator
     if(Map.controllerTwo.RightBumper())//is the right bumber pressed
     {

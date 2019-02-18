@@ -6,8 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+//import static org.junit.Assume.assumeNoException;
+
 //import java
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.*;
 //import frc.robot.OI;
@@ -53,8 +55,14 @@ public class RobotMap
   public PWMVictorSPX LeftElevador;
   public PWMVictorSPX RightElevador;
   
-  //limit switches
-  public LimitSwitch 
+  //limit switches for claw
+  public LimitSwitch BottemClawSwitch;
+  public LimitSwitch TopClawSwitch;
+  
+  //limit switches for elevador
+  public LimitSwitch BottemElevadorSwitch;
+  public LimitSwitch TopElevadorSwitch;
+  
   //connect to arduion for line reader
   RobotMap()
   {
@@ -70,20 +78,27 @@ public class RobotMap
     //SET CONTROLLER PORTS
     controllerOne = new XBoxController(0);
     controllerTwo = new XBoxController(1);
-    
-    //TODO bottem motor set elevtor motor ports
-    LeftElevador = new PWMVictorSPX(5);
-
-    //TODO top motor set elevtor motor ports
-    RightElevador = new PWMVictorSPX(4);
-
+  
     //TODO Set ultrasonic sensor port
     Ultra = new AnalogInput(2);
 
     //TODO set claw motor ports
       
-    LeftClawMotor = new PWMVictorSPX(11);
-    RightClawMotor = new PWMVictorSPX(10);
+    LeftClawMotor = new PWMVictorSPX(6);
+    RightClawMotor = new PWMVictorSPX(7);
+
+    //set limit switches 
+    //claw switches
+    BottemClawSwitch = new LimitSwitch(0);
+    TopClawSwitch = new LimitSwitch(1);
+    
+    //elevador switches
+    BottemClawSwitch = new LimitSwitch(6);
+    TopClawSwitch = new LimitSwitch(7);
+
+    //set elevador motors
+    LeftElevador = new PWMVictorSPX(8);
+    RightElevador = new PWMVictorSPX(9);
 
   }
 }
