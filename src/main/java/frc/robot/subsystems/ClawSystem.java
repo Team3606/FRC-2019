@@ -34,6 +34,11 @@ public class ClawSystem extends Subsystem
   //is a button pressed
   boolean Pressed;
 
+  //lock pressed?
+  boolean ResetPressed = false;
+
+  //store the value of where the claw should be
+  double Speed = 0.0;
   public ClawSystem(RobotMap m) 
   {
     //store robot map
@@ -50,47 +55,74 @@ public class ClawSystem extends Subsystem
   public void Teleop()
   {
 
-     //check to see if it hits the bottem
-     if((-Map.controllerTwo.LeftYAxis() < 0.2 && -Map.controllerTwo.LeftYAxis() > -0.2)||!Map.BottemClawSwitch.CheckState() && -Map.controllerTwo.LeftYAxis()<0)
-     {
-       //display position
-       //lock
-       Map.RightClawMotor.set(-0.1);
-       Map.LeftClawMotor.set(0.1);
-       //check to see if it hits the top
-     }else if((-Map.controllerTwo.LeftYAxis() < 0.2 && -Map.controllerTwo.LeftYAxis() > -0.2)||!Map.TopClawSwitch.CheckState() && -Map.controllerTwo.LeftYAxis()>0)
-     {
-       //display position
-       //lock
-       Map.RightClawMotor.set(-0.1);
-       Map.LeftClawMotor.set(0.1);
- 
-     }else{
-       //control the claw acuator
-       //check t see if its going up or down
-       if(-Map.controllerTwo.LeftYAxis() >0)
-       {
-         //go up faster then you go down
-         Map.RightClawMotor.set(-Map.controllerTwo.LeftYAxis()/3);
-         Map.LeftClawMotor.set(-Map.controllerTwo.LeftYAxis()/3);
-       }else{
-         //go down slower then going up
-         Map.RightClawMotor.set(-Map.controllerTwo.LeftYAxis()/4);
-         Map.LeftClawMotor.set(-Map.controllerTwo.LeftYAxis()/4);
-       }
-     }
+    //SmartDashboard.putBoolean("TopClaw",Map.TopClawSwitch.CheckState());
+    //SmartDashboard.putBoolean("BottemClaw",Map.BottemClawSwitch.CheckState());
+
+    //check to make sure the claw isnt touhing the top or bottem
+    if(Map.controllerTwo.Controller.getPOV()==0)
+    {
+      Speed += 0.005;
+    }
+    if(Map.TopClawSwitch.CheckState())
+    {
+      //Speed += 0.01;
+    }
+    //check to make sure the claw isnt touhing the top or bottem
+    if(Map.controllerTwo.Controller.getPOV()==180)
+    {
+        Speed -= 0.004;
+    }
+    
+    if(Map.BottemClawSwitch.CheckState())
+    {
+      //Speed -=0.01;
+    }
+
+    if(Speed > 1)
+    {
+      Speed =1;
+    }else if(Speed < -1)
+    {
+      Speed = -1;
+    }
+    //display spped
+    SmartDashboard.putNumber("Claw Speed", Speed);
+
+    //setSpeed
+    Map.RightClawMotor.set(Speed);
+    Map.LeftClawMotor.set(Speed);
+
+    //check to see if the person is locking 
+    if(Map.controllerTwo.B_Button())
+    {
+      if(!ResetPressed)
+      {
+        Speed = 0.0;
+      }else{
+        ResetPressed=true;
+      }
+    }else{
+      ResetPressed = false;
+    }
+    //set the speed
+    
+    
   
     //control the claw acuator
     if(Map.controllerTwo.RightBumper())//is the right bumber pressed
     {
       if(!Pressed)
+      {
         Open = true;
         Pressed = true;
+      }
     }else if(Map.controllerTwo.LeftBumper()) //is the Left bumper set?
     {
       if(!Pressed)
-        Open = true;
+        {
+        Open = false;
         Pressed = true;
+        }
     }else{
       Pressed = false;
     }

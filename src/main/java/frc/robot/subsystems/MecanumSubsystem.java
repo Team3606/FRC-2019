@@ -40,6 +40,11 @@ public class MecanumSubsystem extends Subsystem
     PWMVictorSPX frontRight = new PWMVictorSPX(kFrontRightChannel);
     PWMVictorSPX rearRight = new PWMVictorSPX(kRearRightChannel);
 
+    frontLeft.setInverted(true);
+    rearLeft.setInverted(true);
+    frontRight.setInverted(true);
+    rearRight.setInverted(true);
+
     // Invert the left side motors.
     // You may need to change or remove this to match your robot.
     //frontLeft.setInverted(true);
@@ -55,7 +60,7 @@ public class MecanumSubsystem extends Subsystem
   public void drive()
   {
     //mecanumDrive.driveCartesian(map.controllerOne.RightXAxis()/2, map.controllerOne.LeftYAxis()/2, map.controllerOne.LeftXAxis()/2, 0);
-    mecanumDrive.driveCartesian((map.controllerOne.RightXAxis()/2)+/*this is the correction for left to right ->*/(map.controllerOne.LeftXAxis()*0.2), map.controllerOne.LeftYAxis()/2, map.controllerOne.LeftXAxis()/2, 0);
+    mecanumDrive.driveCartesian((-map.controllerOne.LeftXAxis()/2), map.controllerOne.LeftYAxis()/2, (-map.controllerOne.RightXAxis()/2)/*this is the correction for left to right ->-(map.controllerOne.LeftXAxis()*0.2)*/, 0);
   
   }
 

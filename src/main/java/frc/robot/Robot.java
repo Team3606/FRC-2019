@@ -9,8 +9,10 @@ package frc.robot;
 
 import team3606.Pixy;
 import team3606.HallEffect;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -37,12 +39,14 @@ public class Robot extends TimedRobot
   public MecanumSubsystem mecanumSystem;
   //elevador system
   public ElevatorSubSystem elevadorSystem;
-
+  //claw system
+  public ClawSystem clawSystem;
   Drive driveCommand = new Drive();
 
   public static OI operatorInterface;
 
   CameraServer test;
+  CameraServer test2;
 
   // TODO - rename
   Command m_autonomousCommand;
@@ -61,6 +65,8 @@ public class Robot extends TimedRobot
     elevadorSystem = new ElevatorSubSystem(robotMap);
     //init macanum system
     mecanumSystem = new MecanumSubsystem(robotMap);
+    //init claw system
+    clawSystem = new ClawSystem(robotMap);
 
 /*
     operatorInterface = new OI();
@@ -141,10 +147,12 @@ public class Robot extends TimedRobot
   }
 
   CameraServer server = CameraServer.getInstance();
+  CameraServer server2 = CameraServer.getInstance();
 
   @Override
   public void teleopInit() 
   {
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -154,16 +162,14 @@ public class Robot extends TimedRobot
       m_autonomousCommand.cancel();
     }
 
-    //server.addAxisCamera("cam0");
-    //CameraServer.getInstance().startAutomaticCapture();
+    server.addAxisCamera("cam0");
+    //server2.addAxisCamera("cam1");
+    CameraServer.getInstance().startAutomaticCapture();
 
     //driveCommand.start();
 
-    //run elevador system
-    elevadorSystem.Teleop();
-    //run macanum system
-    mecanumSystem.drive();//operatorInterface.driverController);
   }
+
 
   /**
    * This function is called periodically during operator control.
@@ -174,11 +180,12 @@ public class Robot extends TimedRobot
   {
     Scheduler.getInstance().run();
 
-    //macanum system driv update
-    mecanumSystem.drive();
-
-    //elevador system udate
+    //run elevador system
     elevadorSystem.Teleop();
+    //run macanum system
+    mecanumSystem.drive();//operatorInterface.driverController);
+    //claw systme
+    clawSystem.Teleop();
   }
 
   /**

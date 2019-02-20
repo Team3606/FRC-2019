@@ -55,6 +55,9 @@ public class ElevatorSubSystem extends Subsystem
   //level to go to
   int SetLevel = 0;
 
+  //make  a bool to see if the elevador was going up
+  boolean up;
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -162,7 +165,7 @@ public class ElevatorSubSystem extends Subsystem
     }
 
     //display the current mode
-    SmartDashboard.putString("Current Elevador Mode", mode);
+    //SmartDashboard.putString("Current Elevador Mode", mode);
 
     //TODO get actual level numbers
     //do what ya need to do for the mode
@@ -251,8 +254,8 @@ public class ElevatorSubSystem extends Subsystem
     //is it below
     if(Heights[CurrentLevel] < Heights[SetLevel]&&mode != "Manual" && !Map.TopElevadorSwitch.CheckState())
     {
-      Map.LeftElevador.set(0.4);
-      Map.LeftElevador.set(-0.4); 
+      //Map.LeftElevador.set(0.4);
+      //Map.LeftElevador.set(-0.4); 
     }
     //is it above
     if(Heights[CurrentLevel] > Heights[SetLevel]&&mode != "Manual"&& !Map.BottemElevadorSwitch.CheckState())
@@ -261,12 +264,48 @@ public class ElevatorSubSystem extends Subsystem
       //Map.LeftElevador.set(0.4);
     }
     //use the right up and down if its set to manual
-    if(mode == "Manual")
+    SmartDashboard.putBoolean("TopElevador",Map.TopClawSwitch.CheckState());
+
+    if(true)
     {
-      
-      Map.RightElevador.set(Map.controllerTwo.LeftYAxis()/3); 
-      Map.LeftElevador.set(-Map.controllerTwo.LeftYAxis()/3); 
+      if(Map.controllerTwo.RightTrigger() > 0.9)
+      {
+        up = true;
+        if(Map.TopElevadorSwitch.CheckState())
+        {
+          Map.LeftElevador.set(-0.3);
+          Map.RightElevador.set(0.3);
+        }
+      }else if(Map.controllerTwo.LeftTrigger() > 0.9)
+      {
+        up = false;
+        if(Map.TopElevadorSwitch.CheckState())
+        {
+          Map.LeftElevador.set(0.3);
+          Map.RightElevador.set(-0.3);
+        }
+      }else{
+        if(up)
+        {
+          Map.LeftElevador.set(-0.1);
+          Map.RightElevador.set(0.1);
+        }else{
+          Map.LeftElevador.set(0);
+          Map.RightElevador.set(0);
+
+        }
     }
+    }
+    /*
+    if(!Map.TopClawSwitch.CheckState())
+    {
+      Map.LeftElevador.set(0);
+      Map.RightElevador.set(0);
+    }
+    */
+    //displa if the elevdor has reached the top
+    //SmartDashboard.putBoolean("Reached the top", Map.TopElevadorSwitch.CheckState());
+
     //display the level name
     switch(CurrentLevel)
     {
@@ -295,10 +334,11 @@ public class ElevatorSubSystem extends Subsystem
       CurrentLevelName = "Ball Level 3";
       break;
     }
-    SmartDashboard.putString("CurrentLevel", CurrentLevelName);
+    //SmartDashboard.putString("CurrentLevel", CurrentLevelName);
 
     //display the height 
-    SmartDashboard.putNumber("CurrentHeight", Map.Ultra.getAverageVoltage()/(0.15869139000000002/18));
+    //SmartDashboard.putNumber("CurrentHeight", Map.Ultra.getAverageVoltage()/(0.15869139000000002/18));
+  
   }
 
   @Override
@@ -306,3 +346,4 @@ public class ElevatorSubSystem extends Subsystem
   {
   }
 }
+ 

@@ -8,6 +8,8 @@
 package frc.robot;
 //import static org.junit.Assume.assumeNoException;
 
+//ultrasonic
+
 //import java
 //import com.kauailabs.navx.frc.AHRS;
 
@@ -17,9 +19,7 @@ import team3606.XBoxController;
 //import  limit switches
 import team3606.LimitSwitch;
 //import hall effect
-import team3606.HallEffect;
-//ultrasonic
-import edu.wpi.first.wpilibj.Ultrasonic;
+import team3606.HallEffect;//ultrasonic
 import edu.wpi.first.wpilibj.SerialPort.Port;
 
 /**
@@ -38,8 +38,8 @@ public class RobotMap
   public DoubleSolenoid clawSolenoid;
 
   //makemotors for claw
-  public PWMVictorSPX LeftClawMotor;
-  public PWMVictorSPX RightClawMotor;
+  public Spark LeftClawMotor;
+  public Spark RightClawMotor;
 
   //controllers
   public XBoxController controllerOne;
@@ -68,33 +68,32 @@ public class RobotMap
   {
     //set compressor port
     compressor = new Compressor(0);
-
+    //compressor.stop();
     //set automatic
-    compressor.setClosedLoopControl(false);
+    compressor.setClosedLoopControl(true);
+    //compressor.start();
 
     //TODO set solinoid ports
-    clawSolenoid = new DoubleSolenoid(1, 2);
+    clawSolenoid = new DoubleSolenoid(0, 1);
 
     //SET CONTROLLER PORTS
     controllerOne = new XBoxController(0);
     controllerTwo = new XBoxController(1);
   
-    //TODO Set ultrasonic sensor port
-    Ultra = new AnalogInput(2);
 
     //TODO set claw motor ports
       
-    LeftClawMotor = new PWMVictorSPX(6);
-    RightClawMotor = new PWMVictorSPX(7);
+    LeftClawMotor = new Spark(6);
+    RightClawMotor = new Spark(7);
 
     //set limit switches 
     //claw switches
-    BottemClawSwitch = new LimitSwitch(0);
-    TopClawSwitch = new LimitSwitch(1);
+    BottemClawSwitch = new LimitSwitch(1);
+    TopClawSwitch = new LimitSwitch(0);
     
     //elevador switches
-    BottemClawSwitch = new LimitSwitch(6);
-    TopClawSwitch = new LimitSwitch(7);
+    BottemElevadorSwitch = new LimitSwitch(2);
+    TopElevadorSwitch = new LimitSwitch(3);
 
     //set elevador motors
     LeftElevador = new PWMVictorSPX(8);
