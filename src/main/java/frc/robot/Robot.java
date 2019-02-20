@@ -42,10 +42,7 @@ public class Robot extends TimedRobot
   public ClawSystem clawSystem;
 
   //make the cam servers
-//
-
-  CameraServer camOne;
-  CameraServer camTwo;
+  edu.wpi.first.cameraserver.CameraServer camServer;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -55,11 +52,9 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     //add cameras
-    camOne.addAxisCamera("cam0");
-    camTwo.addAxisCamera("cam0");
+    //camServer.addAxisCamera("cam0");
     //start servers
-    camOne.getInstance().startAutomaticCapture();
-    camTwo.getInstance().startAutomaticCapture();
+    //camOne.getInstance().startAutomaticCapture();
     //init robot map
     robotMap = new RobotMap();
     //init elevator system
