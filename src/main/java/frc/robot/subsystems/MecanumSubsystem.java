@@ -40,16 +40,13 @@ public class MecanumSubsystem extends Subsystem
     PWMVictorSPX frontRight = new PWMVictorSPX(kFrontRightChannel);
     PWMVictorSPX rearRight = new PWMVictorSPX(kRearRightChannel);
 
+    //invert the drive
     frontLeft.setInverted(true);
     rearLeft.setInverted(true);
     frontRight.setInverted(true);
     rearRight.setInverted(true);
 
-    // Invert the left side motors.
-    // You may need to change or remove this to match your robot.
-    //frontLeft.setInverted(true);
-    //rearLeft.setInverted(true);
-
+    //make the new macanum drive
     mecanumDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
  
   } 
@@ -59,15 +56,13 @@ public class MecanumSubsystem extends Subsystem
   //Hardcoded to use the joypad that will be defined in OI. Maybe pass instead?
   public void drive()
   {
-    //mecanumDrive.driveCartesian(map.controllerOne.RightXAxis()/2, map.controllerOne.LeftYAxis()/2, map.controllerOne.LeftXAxis()/2, 0);
+    //actualy run the drive
     mecanumDrive.driveCartesian((-map.controllerOne.LeftXAxis()/2), map.controllerOne.LeftYAxis()/2, (-map.controllerOne.RightXAxis()/2)/*this is the correction for left to right ->-(map.controllerOne.LeftXAxis()*0.2)*/, 0);
-  
   }
 
+  //not used, unsure if needed or not
   @Override
   public void initDefaultCommand() 
   {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }

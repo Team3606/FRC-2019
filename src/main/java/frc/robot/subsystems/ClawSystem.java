@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
@@ -22,123 +22,83 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ClawSystem extends Subsystem 
 {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-
   //make an object for robot map
   RobotMap Map;
-
   //Store the state of the claw 
-  boolean Open;
-  
-  //is a button pressed
-  boolean Pressed;
-
-  //lock pressed?
-  boolean ResetPressed = false;
-
+  boolean open;
   //store the value of where the claw should be
-  double Speed = 0.0;
+  double speed = 0.0;
+  //store max speeds
+  double maxReverse = 0.0;
+  double maxForward = 0.0;
+
   public ClawSystem(RobotMap m) 
   {
     //store robot map
     Map = m;
-
     //set the claw to close
-    Open = false;
-    
-    //set the buton unpressed
-    Pressed = false;
+    open = false;
+
+    //set the max speeds
+    maxReverse = -1;
+    maxForward = 1;
   }
 
   //teleop functions
   public void Teleop()
   {
-
-    //SmartDashboard.putBoolean("TopClaw",Map.TopClawSwitch.CheckState());
-    //SmartDashboard.putBoolean("BottemClaw",Map.BottemClawSwitch.CheckState());
-
-    //check to make sure the claw isnt touhing the top or bottem
+    //is the person pressing up?
     if(Map.controllerTwo.Controller.getPOV()==0)
     {
-      Speed += 0.005;
-    }
-    if(Map.TopClawSwitch.CheckState())
+      //increment speed
+      speed = 0.25;
+    //else is john pressing down?
+    }else if(Map.controllerTwo.Controller.getPOV()==180)
     {
-      //Speed += 0.01;
-    }
-    //check to make sure the claw isnt touhing the top or bottem
-    if(Map.controllerTwo.Controller.getPOV()==180)
-    {
-        Speed -= 0.004;
+        //deincrement speed
+        speed = -0.25;
     }
     
-    if(Map.BottemClawSwitch.CheckState())
+    /*------Display-----*/
+    //speed
+    SmartDashboard.putNumber("Clawspeed", speed);
+    //top switch
+    SmartDashboard.putBoolean("Touching Top?", !Map.topClawSwitch.CheckState());
+    //bottom switch
+    SmartDashboard.putBoolean("Touching Bottom?", !Map.bottomClawSwitch.CheckState());
+    /*----speed control----*/
+    //check if speed is more than max
+    if(speed > maxForward)
     {
-      //Speed -=0.01;
-    }
-
-    if(Speed > 1)
+      //set it to max
+      speed =maxForward;
+    //check if speed is more then max reverse
+    }else if(speed < maxReverse)
     {
-      Speed =1;
-    }else if(Speed < -1)
-    {
-      Speed = -1;
-    }
-    //display spped
-    SmartDashboard.putNumber("Claw Speed", Speed);
-
-    //setSpeed
-    Map.RightClawMotor.set(Speed);
-    Map.LeftClawMotor.set(Speed);
-
-    //check to see if the person is locking 
-    if(Map.controllerTwo.B_Button())
-    {
-      if(!ResetPressed)
-      {
-        Speed = 0.0;
-      }else{
-        ResetPressed=true;
-      }
-    }else{
-      ResetPressed = false;
+      //set it to max reverse
+      speed = maxReverse;
     }
     //set the speed
-    
-    
-  
-    //control the claw acuator
+    Map.clawMotor.set(speed);
+
+    /*----Acuator----*/
+    //is it being oppened?
     if(Map.controllerTwo.RightBumper())//is the right bumber pressed
     {
-      if(!Pressed)
-      {
-        Open = true;
-        Pressed = true;
-      }
+      //open claw
+      Map.clawSolenoid.set(DoubleSolenoid.Value.kForward);
+      //set open to true
+      open = true;
+    //is it being closed
     }else if(Map.controllerTwo.LeftBumper()) //is the Left bumper set?
     {
-      if(!Pressed)
-        {
-        Open = false;
-        Pressed = true;
-        }
-    }else{
-      Pressed = false;
-    }
-
-    //check if the claw is set to open
-    if(Open)
-    {
-      //open claw 
-      Map.clawSolenoid.set(DoubleSolenoid.Value.kForward);
-    }else{
       //close claw
       Map.clawSolenoid.set(DoubleSolenoid.Value.kReverse);
+      //set open to false
+      open = false;
     }
-
     //display claw state
-    SmartDashboard.putBoolean("Is Claw Open", Open);
+    SmartDashboard.putBoolean("Is Claw open", open);
   }
   
   @Override

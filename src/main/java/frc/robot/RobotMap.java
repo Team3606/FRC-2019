@@ -30,74 +30,55 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
  */
 public class RobotMap 
 {
-  //pnumatics
+  /*--------pnumatics--------*/
   //compressor
   public Compressor compressor;
-
-  //make objet for the claw
+  //make solonoid for the claw
   public DoubleSolenoid clawSolenoid;
-
-  //makemotors for claw
-  public Spark LeftClawMotor;
-  public Spark RightClawMotor;
-
+  
+  /*--------CONTROLLERS--------*/
   //controllers
   public XBoxController controllerOne;
   public XBoxController controllerTwo;
 
-  //ultrasonic sensor
-	public AnalogInput Ultra;
-
-  //hall effect sensor
-  public HallEffect HallEffectSensors[];
-
+  /*--------MOTORS--------*/
+  //makemotors for claw
+  public Spark clawMotor;
   //motors for elevator
-  public PWMVictorSPX LeftElevador;
-  public PWMVictorSPX RightElevador;
-  
+  public PWMVictorSPX leftElevator;
+  public PWMVictorSPX rightElevator;
+
+  /*--------SWITCHES--------*/
   //limit switches for claw
-  public LimitSwitch BottemClawSwitch;
-  public LimitSwitch TopClawSwitch;
-  
-  //limit switches for elevador
-  public LimitSwitch BottemElevadorSwitch;
-  public LimitSwitch TopElevadorSwitch;
+  public LimitSwitch bottomClawSwitch;
+  public LimitSwitch topClawSwitch;
+  //limit switches for Elevator
+  public LimitSwitch bottomElevatorSwitch;
+  public LimitSwitch topElevatorSwitch;
   
   //connect to arduion for line reader
   RobotMap()
   {
+    /*--------pnumatics--------*/
     //set compressor port
     compressor = new Compressor(0);
-    //compressor.stop();
-    //set automatic
     compressor.setClosedLoopControl(true);
-    //compressor.start();
-
     //TODO set solinoid ports
     clawSolenoid = new DoubleSolenoid(0, 1);
-
-    //SET CONTROLLER PORTS
+    /*--------CONTROLLERS--------*/
     controllerOne = new XBoxController(0);
     controllerTwo = new XBoxController(1);
-  
-
-    //TODO set claw motor ports
-      
-    LeftClawMotor = new Spark(6);
-    RightClawMotor = new Spark(7);
-
-    //set limit switches 
+    /*--------MOTORS--------*/
+    clawMotor = new Spark(6);
+    //set Elevator motors
+    leftElevator = new PWMVictorSPX(8);
+    rightElevator = new PWMVictorSPX(9);
+    /*--------SWITCHES--------*/
     //claw switches
-    BottemClawSwitch = new LimitSwitch(1);
-    TopClawSwitch = new LimitSwitch(0);
-    
-    //elevador switches
-    BottemElevadorSwitch = new LimitSwitch(2);
-    TopElevadorSwitch = new LimitSwitch(3);
-
-    //set elevador motors
-    LeftElevador = new PWMVictorSPX(8);
-    RightElevador = new PWMVictorSPX(9);
-
+    bottomClawSwitch = new LimitSwitch(1);
+    topClawSwitch = new LimitSwitch(0);
+    //Elevator switches
+    bottomElevatorSwitch = new LimitSwitch(2);
+    topElevatorSwitch = new LimitSwitch(3);
   }
 }

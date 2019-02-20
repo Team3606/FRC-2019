@@ -55,7 +55,7 @@ public class ElevatorSubSystem extends Subsystem
   //level to go to
   int SetLevel = 0;
 
-  //make  a bool to see if the elevador was going up
+  //make  a bool to see if the Elevator was going up
   boolean up;
 
   // Put methods for controlling this subsystem
@@ -72,275 +72,48 @@ public class ElevatorSubSystem extends Subsystem
   
   public void Teleop()
   {
-    //check for a switch in modes 
-    if(Map.controllerTwo.Y_Button()&&mode != "Manual")
+    //check if the right trigger is pressed
+    if(Map.controllerTwo.RightTrigger() > 0.9)
     {
-      if(!Pressed)
+      //set the bool up to treu
+      up = true;
+      //check to make sure you arnt hitting the top
+      if(Map.topElevatorSwitch.CheckState())
       {
-        mode = "PanelMode";
-        Manual = false;
+        //go up
+        Map.leftElevator.set(-0.3);
+        Map.rightElevator.set(0.3);
       }
-      Pressed = true;
-    }else if(Map.controllerTwo.B_Button()&&mode != "Manual")
+      //else check to see if the left is being pressed
+    }else if(Map.controllerTwo.LeftTrigger() > 0.9)
     {
-      if(!Pressed)
+      //set going up to false
+      up = false;
+      //ccheck to see if its hitting the bottem
+      if(Map.topElevatorSwitch.CheckState())
       {
-        mode = "BallMode";
-        Manual = false;
+        //go down
+        Map.leftElevator.set(0.3);
+        Map.rightElevator.set(-0.3);
       }
-      Pressed = true;
-      
-    }else if(Map.controllerTwo.X_Button()&&mode != "Manual")
-    {
-      if(!Pressed)
-      {
-        mode = "CargoShip";
-        Manual = false;
-      }
-      Pressed = true;
-      
-    }else if(Map.controllerTwo.A_Button()&&mode != "Manual")
-    {
-      if(!Pressed)
-      {
-        mode = "Reserved";
-        Manual = false;
-      }
-      Pressed = true;
-    }else if(Map.controllerTwo.StartButton())// to/from manual
-    {
-      if(!Pressed)
-      {
-        if(mode == "Manual")
-        {
-          mode = save;
-        }else 
-          save = mode;
-          mode = "Manual";
-        Manual = false;
-      }
-      Pressed = true;
-    }else if(Map.controllerTwo.Controller.getPOV()==0&&mode != "Manual")     //check if its being pressed up
-    {
-      if(!Pressed)
-      {
-        DPad = "Up";
-        Manual = false;
-      }
-      Pressed = true;
-
-    }else if(Map.controllerTwo.Controller.getPOV()==180&&mode != "Manual")     //check if its being pressed down
-    {
-      if(!Pressed)
-      {
-        DPad = "Down";
-        Manual = false;
-      }
-      Pressed = true;
-      
-    }else if(Map.controllerTwo.Controller.getPOV()==270&&mode != "Manual")     //check if its being pressed left
-    {
-      if(!Pressed)
-      {
-        DPad = "Left";
-        Manual = false;
-      }
-      Pressed = true;
-      
-    }else if(Map.controllerTwo.Controller.getPOV()==90&&mode != "Manual")     //check if its being pressed right
-    {
-      if(!Pressed)
-      {
-        DPad = "Right";
-        Manual = false;
-      }
-      Pressed = true;
-      
     }else{
-      //set the direction to none 
-      DPad = "none";
-
-      //set pressed to false
-      Pressed = false;
-    }
-
-    //display the current mode
-    //SmartDashboard.putString("Current Elevador Mode", mode);
-
-    //TODO get actual level numbers
-    //do what ya need to do for the mode
-    switch(mode)
-    {
-      case "PanelMode":
-      switch(DPad)
+      //check if you were going up
+      if(up)
       {
-        case "Left":
-        SetLevel = 2;
-        break;
-        case "Up":
-        SetLevel = 3;
-        break;
-        case "Right":
-        SetLevel = 4;
-        break;
-        case "Down":
-        SetLevel = 1;
-        break;
-      }
-      break;
-      case "BallMode":
-      switch(DPad)
-      {
-        case "Left":
-        SetLevel = 5;
-        break;
-        case "Up":
-        SetLevel = 6;
-        break;
-        case "Right":
-        SetLevel = 7;
-        break;
-        case "Down":
-        SetLevel = 0;
-        break;
-      }
-      break;
-      case "CargoShip":
-      switch(DPad)
-      {
-        case "Left":
-        SetLevel = 2;
-        break;
-        case "Up":
-        SetLevel = 0;
-        break;
-        case "Right":
-        SetLevel = 2;
-        break;
-        case "Down":
-        SetLevel = 1;
-        break;
-      }
-      break;
-      case "Reserved":
-      switch(DPad)
-      {
-        case "Left":
-        SetLevel = 0;
-        break;
-        case "Up":
-        SetLevel = 0;
-        break;
-        case "Right":
-        SetLevel = 0;
-        break;
-        case "Down":
-        SetLevel = 0;
-        break;
-      }
-      break;
-    }
-
-    if(SetLevel < 0)
-    {
-      SetLevel = 0;
-    }
-    if(SetLevel > 8)
-    {
-      SetLevel = 8;
-    }
-
-    //TODO set up motors
-    //is it below
-    if(Heights[CurrentLevel] < Heights[SetLevel]&&mode != "Manual" && !Map.TopElevadorSwitch.CheckState())
-    {
-      //Map.LeftElevador.set(0.4);
-      //Map.LeftElevador.set(-0.4); 
-    }
-    //is it above
-    if(Heights[CurrentLevel] > Heights[SetLevel]&&mode != "Manual"&& !Map.BottemElevadorSwitch.CheckState())
-    {
-      //Map.LeftElevador.set(-0.4);
-      //Map.LeftElevador.set(0.4);
-    }
-    //use the right up and down if its set to manual
-    SmartDashboard.putBoolean("TopElevador",Map.TopClawSwitch.CheckState());
-
-    if(true)
-    {
-      if(Map.controllerTwo.RightTrigger() > 0.9)
-      {
-        up = true;
-        if(Map.TopElevadorSwitch.CheckState())
-        {
-          Map.LeftElevador.set(-0.3);
-          Map.RightElevador.set(0.3);
-        }
-      }else if(Map.controllerTwo.LeftTrigger() > 0.9)
-      {
-        up = false;
-        if(Map.TopElevadorSwitch.CheckState())
-        {
-          Map.LeftElevador.set(0.3);
-          Map.RightElevador.set(-0.3);
-        }
+        //hold the elevator to keep it from falling
+        Map.leftElevator.set(-0.1);
+        Map.rightElevator.set(0.1);
       }else{
-        if(up)
-        {
-          Map.LeftElevador.set(-0.1);
-          Map.RightElevador.set(0.1);
-        }else{
-          Map.LeftElevador.set(0);
-          Map.RightElevador.set(0);
+        //else you were going down anyway so let it fall
+        Map.leftElevator.set(0);
+        Map.rightElevator.set(0);
 
-        }
+      }
     }
-    }
-    /*
-    if(!Map.TopClawSwitch.CheckState())
-    {
-      Map.LeftElevador.set(0);
-      Map.RightElevador.set(0);
-    }
-    */
-    //displa if the elevdor has reached the top
-    //SmartDashboard.putBoolean("Reached the top", Map.TopElevadorSwitch.CheckState());
 
-    //display the level name
-    switch(CurrentLevel)
-    {
-      case 0:
-        CurrentLevelName = "pickupball";
-      break;
-      case 1:
-      CurrentLevelName = "pickup panel";
-      break;
-      case 2:
-      CurrentLevelName = "Panel level 1 / cargoship";
-      break;
-      case 3:
-      CurrentLevelName = "Panel level 2";
-      break;
-      case 4:
-      CurrentLevelName = "Panel Level 3";
-      break;
-      case 5:
-      CurrentLevelName = "Ball Level 1";
-      break;
-      case 6:
-      CurrentLevelName = "Ball Level 2";
-      break;
-      case 7:
-      CurrentLevelName = "Ball Level 3";
-      break;
-    }
-    //SmartDashboard.putString("CurrentLevel", CurrentLevelName);
-
-    //display the height 
-    //SmartDashboard.putNumber("CurrentHeight", Map.Ultra.getAverageVoltage()/(0.15869139000000002/18));
-  
   }
 
+  //is this even needed?
   @Override
   public void initDefaultCommand() 
   {
