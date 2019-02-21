@@ -61,16 +61,23 @@ public class ClawSystem extends Subsystem
     //check to make sure the claw isnt touhing the top or bottem
     if(Map.controllerTwo.Controller.getPOV()==0)
     {
-      Speed += 0.005;
+      //Speed = 0.25;
+      Map.LeftClawMotor.set(0.45);
     }
+    //check to make sure the claw isnt touhing the top or bottem
+    else if(Map.controllerTwo.Controller.getPOV()==180)
+    {
+        //Speed = -0.25;
+        Map.LeftClawMotor.set(-0.25);
+    }
+    else
+    {
+      Map.LeftClawMotor.set(0);
+    }
+
     if(Map.TopClawSwitch.CheckState())
     {
       //Speed += 0.01;
-    }
-    //check to make sure the claw isnt touhing the top or bottem
-    if(Map.controllerTwo.Controller.getPOV()==180)
-    {
-        Speed -= 0.004;
     }
     
     if(Map.BottemClawSwitch.CheckState())
@@ -89,8 +96,7 @@ public class ClawSystem extends Subsystem
     SmartDashboard.putNumber("Claw Speed", Speed);
 
     //setSpeed
-    Map.RightClawMotor.set(Speed);
-    Map.LeftClawMotor.set(Speed);
+    //Map.LeftClawMotor.set(Speed);
 
     //check to see if the person is locking 
     if(Map.controllerTwo.B_Button())
