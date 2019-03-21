@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.MecanumSubsystem;
+import frc.robot.subsystems.MecanumSubsystemReboot;
 
 /*
  * The VM is configured to automatically run this class, and to call the
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot
   //make the robotmap
   public RobotMap robotMap;
   //make macanical drivesystem
-  public MecanumSubsystem mecanumSystem;
+  public MecanumSubsystemReboot mecanumSystem;
   //elevador system
   public ElevatorSubSystem elevadorSystem;
   //claw system
@@ -44,9 +44,6 @@ public class Robot extends TimedRobot
   Drive driveCommand = new Drive();
 
   public static OI operatorInterface;
-
-  CameraServer test;
-  CameraServer test2;
 
   // TODO - rename
   Command m_autonomousCommand;
@@ -64,7 +61,7 @@ public class Robot extends TimedRobot
     //init elevador system
     elevadorSystem = new ElevatorSubSystem(robotMap);
     //init macanum system
-    mecanumSystem = new MecanumSubsystem(robotMap);
+    mecanumSystem = new MecanumSubsystemReboot(robotMap);
     //init claw system
     clawSystem = new ClawSystem(robotMap);
 
@@ -87,9 +84,9 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
-    
+      
   }
-
+  CameraServer s = CameraServer.getInstance();
   /**
    * This function is called once each time the robot enters Disabled mode.
    * You can use it to reset any subsystem information you want to clear when
