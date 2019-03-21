@@ -34,13 +34,13 @@ public class Robot extends TimedRobot
   //make a pixy
   //Pixy t = new Pixy(0);
   //make the robotmap
-  public RobotMap robotMap;
+  public RobotMap robotMap = null;
   //make macanical drivesystem
-  public MecanumSubsystemReboot mecanumSystem;
+  public MecanumSubsystemReboot mecanumSystem= null;
   //elevador system
-  public ElevatorSubSystem elevadorSystem;
+  public ElevatorSubSystem elevadorSystem= null;
   //claw system
-  public ClawSystem clawSystem;
+  public ClawSystem clawSystem= null;
   Drive driveCommand = new Drive();
 
   public static OI operatorInterface;
@@ -57,14 +57,19 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     //init robot map
-    robotMap = new RobotMap();
+    if(robotMap == null)
+      robotMap = new RobotMap();
     //init elevador system
-    elevadorSystem = new ElevatorSubSystem(robotMap);
+    if(elevadorSystem == null)
+      elevadorSystem = new ElevatorSubSystem(robotMap);
     //init macanum system
-    mecanumSystem = new MecanumSubsystemReboot(robotMap);
+    if(mecanumSystem == null)
+      mecanumSystem = new MecanumSubsystemReboot(robotMap);
     //init claw system
-    clawSystem = new ClawSystem(robotMap);
-
+    if(clawSystem == null)
+      clawSystem = new ClawSystem(robotMap);
+    //start cham
+    CameraServer.getInstance().startAutomaticCapture();
 /*
     operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -86,7 +91,6 @@ public class Robot extends TimedRobot
   {
       
   }
-  CameraServer s = CameraServer.getInstance();
   /**
    * This function is called once each time the robot enters Disabled mode.
    * You can use it to reset any subsystem information you want to clear when
@@ -118,20 +122,22 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    m_autonomousCommand = m_chooser.getSelected();
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) 
-    {
-      m_autonomousCommand.start();
-    }
+    //init robot map
+    robotMap = new RobotMap();
+    //init elevador system
+    elevadorSystem = new ElevatorSubSystem(robotMap);
+    //init macanum system
+    mecanumSystem = new MecanumSubsystemReboot(robotMap);
+    //init claw system
+    clawSystem = new ClawSystem(robotMap);
+    //start cham
+    CameraServer.getInstance().startAutomaticCapture();
+/*
+    operatorInterface = new OI();
+    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_chooser);
+  */
   }
 
   /**
@@ -141,10 +147,15 @@ public class Robot extends TimedRobot
   public void autonomousPeriodic() 
   {
     Scheduler.getInstance().run();
+
+    //run elevador system
+    elevadorSystem.Teleop();
+    //run macanum system
+    mecanumSystem.drive();//operatorInterface.driverController);
+    //claw systme
+    clawSystem.Teleop();
   }
 
-  CameraServer server = CameraServer.getInstance();
-  CameraServer server2 = CameraServer.getInstance();
 
   @Override
   public void teleopInit() 
@@ -159,11 +170,6 @@ public class Robot extends TimedRobot
       m_autonomousCommand.cancel();
     }
 
-    server.addAxisCamera("cam0");
-    //server2.addAxisCamera("cam1");
-    CameraServer.getInstance().startAutomaticCapture();
-
-    //driveCommand.start();
 
   }
 
