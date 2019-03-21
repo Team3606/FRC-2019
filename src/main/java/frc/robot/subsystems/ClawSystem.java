@@ -31,8 +31,13 @@ public class ClawSystem extends Subsystem
   //Store the state of the claw 
   boolean Open;
   
+  //store if the claw has a ball or disk
+  boolean HoldingItem = false;
   //is a button pressed
   boolean Pressed;
+
+  //is the a key pressed
+  boolean aPressed = false;
 
   //lock pressed?
   boolean ResetPressed = false;
@@ -42,7 +47,7 @@ public class ClawSystem extends Subsystem
   public ClawSystem(RobotMap m) 
   {
     //store robot map
-    Map = m;
+    Map = m; 
 
     //set the claw to close
     Open = false;
@@ -63,17 +68,20 @@ public class ClawSystem extends Subsystem
     {
       //Speed = 0.25;
       Map.LeftClawMotor.set(0.45);
+    }else{
+      
+      Map.LeftClawMotor.set(0.2);
     }
     //check to make sure the claw isnt touhing the top or bottem
-    else if(Map.controllerTwo.Controller.getPOV()==180)
+    if(Map.controllerTwo.Controller.getPOV()==180)
     {
         //Speed = -0.25;
         Map.LeftClawMotor.set(-0.25);
     }
-    else
+  /*  else
     {
       Map.LeftClawMotor.set(0);
-    }
+    }*/
 
     if(Map.TopClawSwitch.CheckState())
     {
@@ -145,6 +153,27 @@ public class ClawSystem extends Subsystem
 
     //display claw state
     SmartDashboard.putBoolean("Is Claw Open", Open);
+
+    /*
+    //display if you have the claw in holding mode 
+    SmartDashboard.putBoolean("is in holding mode?", HoldingItem);
+  
+    //check if the person is switching mode
+    if(Map.controllerTwo.A_Button())
+    {
+      if(!aPressed)
+      {
+        HoldingItem = !HoldingItem;
+      }
+      aPressed = true;
+    }else
+      aPressed = false;
+
+      //check what mode its in
+      if(HoldingItem)
+      {
+        Map.LeftClawMotor.set(0.20);
+      }*/
   }
   
   @Override
