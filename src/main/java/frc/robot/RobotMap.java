@@ -79,9 +79,6 @@ public class RobotMap
     controllerOne = new XBoxController(0);
     controllerTwo = new XBoxController(1);
     
-    TestMotor.kReverse(true);
-    TestMotor2.kReverse(true);
-    
     //TODO set elevtor motor ports
     TestMotor = new Talon(0);
 
