@@ -102,6 +102,7 @@ public class Robot extends TimedRobot
   public void autonomousPeriodic() 
   {
     Scheduler.getInstance().run();
+    SmartDashboard.putString("DB/String 0", "TEST");
   }
 
   CameraServer server = CameraServer.getInstance();
@@ -119,6 +120,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
+    SmartDashboard.putString("DB/String 0", "TEST");
   }
 
   /**
