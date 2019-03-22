@@ -68,7 +68,11 @@ public class MecanumSubsystemReboot extends Subsystem
   public void drive()
   {
     //mecanumDrive.driveCartesian(map.controllerOne.RightXAxis()/2, map.controllerOne.LeftYAxis()/2, map.controllerOne.LeftXAxis()/2, 0);
-    mecanumDrive.driveCartesian((-map.controllerOne.LeftXAxis()/2), map.controllerOne.LeftYAxis()/2, (-map.controllerOne.RightXAxis()/2))/*this is the correction for left to right ->-(map.controllerOne.LeftXAxis()*0.2), 0)*/;
+    if(map.controllerOne.A_Button())
+    {
+      mecanumDrive.driveCartesian((-map.controllerOne.LeftXAxis()/4), map.controllerOne.LeftYAxis()/4, (-map.controllerOne.RightXAxis()/4))/*this is the correction for left to right ->-(map.controllerOne.LeftXAxis()*0.2), 0)*/;
+    }else 
+      mecanumDrive.driveCartesian((-map.controllerOne.LeftXAxis()/2), map.controllerOne.LeftYAxis()/2, (-map.controllerOne.RightXAxis()/2))/*this is the correction for left to right ->-(map.controllerOne.LeftXAxis()*0.2), 0)*/;
   
   }
 }
