@@ -273,8 +273,8 @@ public class ElevatorSubSystem extends Subsystem
         up = true;
         if(Map.TopElevadorSwitch.CheckState())
         {
-          Map.LeftElevador.set(-0.3);
-          Map.RightElevador.set(0.3);
+          Map.LeftElevador.set(-0.35);
+          Map.RightElevador.set(0.35);
         }
       }else if(Map.controllerTwo.LeftTrigger() > 0.9)
       {

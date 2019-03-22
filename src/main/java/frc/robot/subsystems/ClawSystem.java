@@ -29,7 +29,7 @@ public class ClawSystem extends Subsystem
   RobotMap Map;
 
   //Store the state of the claw 
-  boolean Open;
+  boolean Open = true;
   
   //store if the claw has a ball or disk
   boolean HoldingItem = false;
@@ -50,7 +50,7 @@ public class ClawSystem extends Subsystem
     Map = m; 
 
     //set the claw to close
-    Open = false;
+    Open = true;
     
     //set the buton unpressed
     Pressed = false;

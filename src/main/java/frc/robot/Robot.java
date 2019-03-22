@@ -31,8 +31,6 @@ import frc.robot.subsystems.MecanumSubsystemReboot;
  */
 public class Robot extends TimedRobot 
 {
-  //make a pixy
-  //Pixy t = new Pixy(0);
   //make the robotmap
   public RobotMap robotMap = null;
   //make macanical drivesystem
@@ -53,9 +51,26 @@ public class Robot extends TimedRobot
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+    
+  //cameras
+  public UsbCamera camera1;
+  public UsbCamera camera2;
+
   @Override
   public void robotInit() 
   {
+    //edu.wpi.first.cameraserver.
+    
+    camera1 = CameraServer.getInstance().startAutomaticCapture("fish cam", 0);
+    camera1.setResolution(320, 240);
+    camera1.setBrightness(50);
+    camera1.setFPS(20);
+    /*
+    camera2 = CameraServer.getInstance().startAutomaticCapture("life cam", 1);
+    camera2.setResolution(320, 240);
+    camera2.setBrightness(50);
+    camera2.setFPS(20);
+*/
     //init robot map
     if(robotMap == null)
       robotMap = new RobotMap();
@@ -69,7 +84,7 @@ public class Robot extends TimedRobot
     if(clawSystem == null)
       clawSystem = new ClawSystem(robotMap);
     //start cham
-    CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
 /*
     operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -122,16 +137,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    //init robot map
-    robotMap = new RobotMap();
-    //init elevador system
-    elevadorSystem = new ElevatorSubSystem(robotMap);
-    //init macanum system
-    mecanumSystem = new MecanumSubsystemReboot(robotMap);
-    //init claw system
-    clawSystem = new ClawSystem(robotMap);
-    //start cham
-    CameraServer.getInstance().startAutomaticCapture();
+    teleopInit();
 /*
     operatorInterface = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -154,22 +160,14 @@ public class Robot extends TimedRobot
     mecanumSystem.drive();//operatorInterface.driverController);
     //claw systme
     clawSystem.Teleop();
+    // init
+        
   }
 
 
   @Override
   public void teleopInit() 
   {
-
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (m_autonomousCommand != null) 
-    {
-      m_autonomousCommand.cancel();
-    }
-
 
   }
 

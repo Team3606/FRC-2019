@@ -21,6 +21,9 @@ import team3606.LimitSwitch;
 //import hall effect
 import team3606.HallEffect;//ultrasonic
 import edu.wpi.first.wpilibj.SerialPort.Port;
+//cameras
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.*;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -66,6 +69,9 @@ public class RobotMap
   //connect to arduion for line reader
   RobotMap()
   {
+    
+    
+
     //set compressor port
     compressor = new Compressor(0);
     //compressor.stop();
