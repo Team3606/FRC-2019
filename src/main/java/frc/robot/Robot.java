@@ -10,6 +10,7 @@ package frc.robot;
 import team3606.Pixy;
 import team3606.HallEffect;
 import edu.wpi.first.cameraserver.*;
+import edu.wpi.first.wpilibj.tables.*;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -41,9 +42,21 @@ public class Robot extends TimedRobot
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+  //public UsbCamera camera1;
+  //public UsbCamera camera2;
+
   @Override
   public void robotInit() 
   {
+    //edu.wpi.first.cameraserver.
+    /*
+    camera1 = CameraServer.getInstance().startAutomaticCapture("fish cam", 0);
+    camera1.setResolution(320, 240);
+    camera1.setBrightness(50);
+    camera1.setFPS(20);
+    */
+    
+    CameraServer.getInstance().startAutomaticCapture();
     //init robot map
     robotMap = new RobotMap();
   }
