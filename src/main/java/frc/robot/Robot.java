@@ -71,6 +71,7 @@ public class Robot extends TimedRobot
     camera2.setResolution(320, 240);
     camera2.setBrightness(50);
     camera2.setFPS(20);
+    
     /*
     camera2 = CameraServer.getInstance().startAutomaticCapture("life cam", 1);
     camera2.setResolution(320, 240);
