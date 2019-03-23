@@ -91,6 +91,7 @@ public class Robot extends TimedRobot
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   */
+  robotMap.gyro.reset();
   }
 
   /**
@@ -137,6 +138,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
+    robotMap.gyro.reset();
     teleopInit();
 /*
     operatorInterface = new OI();
@@ -168,6 +170,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit() 
   {
+    robotMap.gyro.reset();
 
   }
 
@@ -179,6 +182,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
+    
+    SmartDashboard.putString("DB/String 0", Double.toString(robotMap.gyro.getAngle()));
     Scheduler.getInstance().run();
 
     //run elevador system

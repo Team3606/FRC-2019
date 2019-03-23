@@ -21,9 +21,11 @@ import team3606.LimitSwitch;
 //import hall effect
 import team3606.HallEffect;//ultrasonic
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 //cameras
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.*;
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -33,6 +35,7 @@ import edu.wpi.first.cameraserver.*;
  */
 public class RobotMap 
 {
+  public AHRS gyro;
   //pnumatics
   //compressor
   public Compressor compressor;
@@ -71,7 +74,8 @@ public class RobotMap
   {
     
     
-
+    gyro = new AHRS(Port.kUSB);
+    
     //set compressor port
     compressor = new Compressor(0);
     //compressor.stop();

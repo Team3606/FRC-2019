@@ -22,6 +22,17 @@ import frc.robot.RobotMap;
  */
 public class MecanumSubsystemReboot extends Subsystem 
 {
+  //angle amount 
+  double angle = 33;
+  
+  //is it oppisate?
+  boolean oppisate = false;
+
+  //toogale oppisate
+  boolean toggleY = false;
+
+  //store the set angle 
+  double setAngle = 0.0;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -32,7 +43,8 @@ public class MecanumSubsystemReboot extends Subsystem
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  
+  boolean moving = false;
+
   //Declare motors with their ports
   private static final int kFrontLeftChannel = 0;
   private static final int kRearLeftChannel = 1;
@@ -68,11 +80,72 @@ public class MecanumSubsystemReboot extends Subsystem
   public void drive()
   {
     //mecanumDrive.driveCartesian(map.controllerOne.RightXAxis()/2, map.controllerOne.LeftYAxis()/2, map.controllerOne.LeftXAxis()/2, 0);
+    
+    /*if(moving == false && map.controllerOne.LeftXAxis()>0&&map.controllerOne.LeftyAxis() && map.controllerOne.RightXAxis())
+    {
+      gyro.reset();
+    }
+*/
     if(map.controllerOne.A_Button())
     {
       mecanumDrive.driveCartesian((-map.controllerOne.LeftXAxis()/4), map.controllerOne.LeftYAxis()/4, (-map.controllerOne.RightXAxis()/4))/*this is the correction for left to right ->-(map.controllerOne.LeftXAxis()*0.2), 0)*/;
     }else 
       mecanumDrive.driveCartesian((-map.controllerOne.LeftXAxis()/2), map.controllerOne.LeftYAxis()/2, (-map.controllerOne.RightXAxis()/2))/*this is the correction for left to right ->-(map.controllerOne.LeftXAxis()*0.2), 0)*/;
-  
+  /*
+    //is he toggeling sides?
+    if(map.controllerOne.Y_Button())
+    {
+      //check if its already pressed
+      if(toggleY)
+      {
+        //swap
+        oppisate = !oppisate;
+        toggleY = true;
+      }
+    }else{
+      //disable toggle
+      toggleY = false;
+    }
+    //set the angle
+    if(oppisate)
+    {
+      //set it to the reverse
+      angle = 114;
+    }else {
+      //else set it to the normal angle
+      angle = 33;
+    }
+    //is he trying to go to the right one?
+    if(map.controllerOne.X_Button())
+    {
+      //is it less then the angle`  
+      if((map.gyro.getAngle() + setAngle)< angle)
+      {
+        mecanumDrive.driveCartesian(0, 0, 0.2);
+        // is it more?
+      }else if((map.gyro.getAngle() + setAngle)>angle)
+      {
+        mecanumDrive.driveCartesian(0, 0, -0.2);
+      }
+    }
+    //is he going to the rifht one
+    if(map.controllerOne.B_Button())
+    {
+      //is it then the angle
+      if((map.gyro.getAngle() + setAngle)<-angle)
+      {
+        mecanumDrive.driveCartesian(0, 0, 0.2);
+        //is it more then the angle
+      }else if((map.gyro.getAngle() + setAngle)>-angle)
+      {
+        mecanumDrive.driveCartesian(0, 0, -0.2);
+      }
+    }
+
+    //check if the pov is being pressed
+    if(map.controllerOne.Controller.getPOV()\> 0)
+      setAngle = map.controllerOne.Controller.getPOV();
+      
+ */
   }
 }
